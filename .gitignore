@@ -50,7 +50,12 @@ application-local.properties
 local.properties
 
 
-###### ui: javascript, typescript, nodejs, reactjs, umijs ######
+### system ###
+
+*.out
+
+
+### ui: javascript, typescript, nodejs, reactjs, umijs ###
 
 # dependencies
 /node_modules
