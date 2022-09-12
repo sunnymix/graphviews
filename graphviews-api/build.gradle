@@ -1,0 +1,51 @@
+buildscript {
+    ext {
+        // junit
+        junitVersion = "5.9.0"
+        // spring
+        springBootVersion = "2.6.6"
+        springDependencyManagement = "1.0.11.RELEASE"
+        // lombok
+        lombokVersion = "1.18.24"
+        // mysql
+        mysqlVersion = '8.0.30'
+        // jooq
+        jooqGradlePluginVersion = "6.0.1"
+        jooqVersion = "3.15.4"
+    }
+}
+
+plugins {
+    id "org.springframework.boot" version "$springBootVersion"
+    id 'io.spring.dependency-management' version "$springDependencyManagement"
+    id "java"
+    id 'nu.studer.jooq' version "$jooqGradlePluginVersion"
+}
+
+group 'com.sunnymix'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // test
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    // spring
+    implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    // lombok
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    // mysql
+    runtimeOnly "mysql:mysql-connector-java:$mysqlVersion"
+    // jooq
+    implementation "org.springframework.boot:spring-boot-starter-jooq:$springBootVersion"
+    compileOnly "org.jooq:jooq-meta:$jooqVersion"
+    compileOnly "org.jooq:jooq-codegen:$jooqVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
