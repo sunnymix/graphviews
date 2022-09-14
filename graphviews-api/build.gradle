@@ -49,3 +49,75 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+sourceSets {
+    orgmain {
+        java.srcDirs files('src/main/java', 'gensrc/main/java')
+    }
+}
+
+jooq {
+    version = jooqVersion
+
+    dependencies {
+        jooqGenerator "mysql:mysql-connector-java:$mysqlVersion"
+    }
+
+    configurations {
+        main {
+            def schema = 'graphviews'
+            def basePackageName = 'com.sunnymix.graphviews.orm.jooq'
+            def targetDirectory = "$projectDir/gensrc/main/java"
+
+            generateSchemaSourceOnCompilation = false
+
+            generationTool {
+                logging = org.jooq.meta.jaxb.Logging.INFO
+
+                jdbc {
+                    driver = 'com.mysql.jdbc.Driver'
+                    url = "$_dbHost/$schema?useUnicode=true&characterEncoding=UTF-8&useSSL=false"
+                    user = _dbUser
+                    password = _dbPassword
+                }
+
+                generator {
+                    name = 'org.jooq.codegen.DefaultGenerator'
+                    database {
+                        name = 'org.jooq.meta.mysql.MySQLDatabase'
+                        inputSchema = schema
+                        outputSchema = schema
+                        includes = '.*'
+                        excludes = 'flyway_schema_history'
+                        customTypes {
+                            customType {
+                                name = 'LocalDateTimeToOffsetDateTime'
+                                type = 'java.time.OffsetDateTime'
+                                converter = 'com.sunnymix.graphviews.common.jooq.converter.LocalDateTimeToOffsetDateTimeConverter'
+                            }
+                        }
+                        forcedTypes {
+                            forcedType {
+                                name = 'LocalDateTimeToOffsetDateTime'
+                                includeExpression = '.*'
+                                includeTypes = '(?i:(TIMESTAMP|DATETIME)\\(\\d+\\))?'
+                                nullability = 'NOT_NULL'
+                            }
+                        }
+                    }
+                    generate {
+                        deprecated = false
+                        records = true
+                        immutablePojos = true
+                        fluentSetters = true
+                    }
+                    target {
+                        packageName = basePackageName
+                        directory = targetDirectory
+                    }
+                    strategy.name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+                }
+            }
+        }
+    }
+}
