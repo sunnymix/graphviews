@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo 'Build graphviews-api:'
+
+./gradlew build
+
+java -jar ./build/libs/graphviews-api-1.0-SNAPSHOT.jar
