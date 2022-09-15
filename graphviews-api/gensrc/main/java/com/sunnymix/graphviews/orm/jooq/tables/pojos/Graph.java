@@ -17,26 +17,26 @@ public class Graph implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final String         id;
-    private final String         title;
-    private final String         text;
+    private final String         name;
+    private final String         source;
     private final OffsetDateTime created;
 
     public Graph(Graph value) {
         this.id = value.id;
-        this.title = value.title;
-        this.text = value.text;
+        this.name = value.name;
+        this.source = value.source;
         this.created = value.created;
     }
 
     public Graph(
         String         id,
-        String         title,
-        String         text,
+        String         name,
+        String         source,
         OffsetDateTime created
     ) {
         this.id = id;
-        this.title = title;
-        this.text = text;
+        this.name = name;
+        this.source = source;
         this.created = created;
     }
 
@@ -48,17 +48,17 @@ public class Graph implements Serializable {
     }
 
     /**
-     * Getter for <code>graphviews.graph.title</code>. 标题
+     * Getter for <code>graphviews.graph.name</code>. 名称
      */
-    public String getTitle() {
-        return this.title;
+    public String getName() {
+        return this.name;
     }
 
     /**
-     * Getter for <code>graphviews.graph.text</code>. 文本
+     * Getter for <code>graphviews.graph.source</code>. 源码
      */
-    public String getText() {
-        return this.text;
+    public String getSource() {
+        return this.source;
     }
 
     /**
@@ -73,8 +73,8 @@ public class Graph implements Serializable {
         StringBuilder sb = new StringBuilder("Graph (");
 
         sb.append(id);
-        sb.append(", ").append(title);
-        sb.append(", ").append(text);
+        sb.append(", ").append(name);
+        sb.append(", ").append(source);
         sb.append(", ").append(created);
 
         sb.append(")");

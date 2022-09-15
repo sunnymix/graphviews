@@ -53,14 +53,14 @@ public class Graph extends TableImpl<GraphRecord> {
     public final TableField<GraphRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(50).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "ID");
 
     /**
-     * The column <code>graphviews.graph.title</code>. 标题
+     * The column <code>graphviews.graph.name</code>. 名称
      */
-    public final TableField<GraphRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(100).nullable(false), this, "标题");
+    public final TableField<GraphRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(100).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "名称");
 
     /**
-     * The column <code>graphviews.graph.text</code>. 文本
+     * The column <code>graphviews.graph.source</code>. 源码
      */
-    public final TableField<GraphRecord, String> TEXT = createField(DSL.name("text"), SQLDataType.CLOB.nullable(false), this, "文本");
+    public final TableField<GraphRecord, String> SOURCE = createField(DSL.name("source"), SQLDataType.CLOB.nullable(false), this, "源码");
 
     /**
      * The column <code>graphviews.graph.created</code>. 创建时间

@@ -39,32 +39,32 @@ public class GraphRecord extends UpdatableRecordImpl<GraphRecord> implements Rec
     }
 
     /**
-     * Setter for <code>graphviews.graph.title</code>. 标题
+     * Setter for <code>graphviews.graph.name</code>. 名称
      */
-    public GraphRecord setTitle(String value) {
+    public GraphRecord setName(String value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>graphviews.graph.title</code>. 标题
+     * Getter for <code>graphviews.graph.name</code>. 名称
      */
-    public String getTitle() {
+    public String getName() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>graphviews.graph.text</code>. 文本
+     * Setter for <code>graphviews.graph.source</code>. 源码
      */
-    public GraphRecord setText(String value) {
+    public GraphRecord setSource(String value) {
         set(2, value);
         return this;
     }
 
     /**
-     * Getter for <code>graphviews.graph.text</code>. 文本
+     * Getter for <code>graphviews.graph.source</code>. 源码
      */
-    public String getText() {
+    public String getSource() {
         return (String) get(2);
     }
 
@@ -113,12 +113,12 @@ public class GraphRecord extends UpdatableRecordImpl<GraphRecord> implements Rec
 
     @Override
     public Field<String> field2() {
-        return Graph.GRAPH.TITLE;
+        return Graph.GRAPH.NAME;
     }
 
     @Override
     public Field<String> field3() {
-        return Graph.GRAPH.TEXT;
+        return Graph.GRAPH.SOURCE;
     }
 
     @Override
@@ -133,12 +133,12 @@ public class GraphRecord extends UpdatableRecordImpl<GraphRecord> implements Rec
 
     @Override
     public String component2() {
-        return getTitle();
+        return getName();
     }
 
     @Override
     public String component3() {
-        return getText();
+        return getSource();
     }
 
     @Override
@@ -153,12 +153,12 @@ public class GraphRecord extends UpdatableRecordImpl<GraphRecord> implements Rec
 
     @Override
     public String value2() {
-        return getTitle();
+        return getName();
     }
 
     @Override
     public String value3() {
-        return getText();
+        return getSource();
     }
 
     @Override
@@ -174,13 +174,13 @@ public class GraphRecord extends UpdatableRecordImpl<GraphRecord> implements Rec
 
     @Override
     public GraphRecord value2(String value) {
-        setTitle(value);
+        setName(value);
         return this;
     }
 
     @Override
     public GraphRecord value3(String value) {
-        setText(value);
+        setSource(value);
         return this;
     }
 
@@ -213,12 +213,12 @@ public class GraphRecord extends UpdatableRecordImpl<GraphRecord> implements Rec
     /**
      * Create a detached, initialised GraphRecord
      */
-    public GraphRecord(String id, String title, String text, OffsetDateTime created) {
+    public GraphRecord(String id, String name, String source, OffsetDateTime created) {
         super(Graph.GRAPH);
 
         setId(id);
-        setTitle(title);
-        setText(text);
+        setName(name);
+        setSource(source);
         setCreated(created);
     }
 
@@ -230,8 +230,8 @@ public class GraphRecord extends UpdatableRecordImpl<GraphRecord> implements Rec
 
         if (value != null) {
             setId(value.getId());
-            setTitle(value.getTitle());
-            setText(value.getText());
+            setName(value.getName());
+            setSource(value.getSource());
             setCreated(value.getCreated());
         }
     }
