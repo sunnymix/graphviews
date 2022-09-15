@@ -1,0 +1,34 @@
+.header {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.body {
+  padding: 35px 15px 15px;
+}
+
+html,
+body,
+.body {
+  background-color: #e7e7e7;
+}
+
+html {
+  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: scroll;
+}
+
+html::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
