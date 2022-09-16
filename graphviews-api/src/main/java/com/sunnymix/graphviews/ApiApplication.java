@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @SpringBootApplication(scanBasePackages = {Constant.BASE_PACKAGE})
 @ConfigurationPropertiesScan({Constant.BASE_PACKAGE})
-public class GraphviewsApiApplication {
+public class ApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GraphviewsApiApplication.class, args);
+        SpringApplication.run(ApiApplication.class, args);
     }
 
     @RestController
