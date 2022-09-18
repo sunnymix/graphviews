@@ -1,34 +1,41 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import GraphApi from "../api/GraphApi";
 import { Space, Input, Button } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+const { Search } = Input;
 import { history } from 'umi';
+import "./GraphListStyle.css";
 
 export default forwardRef((props, ref) => {
 
-  const [graphs, setGraphs] = useState([
-    {
-      id: "1",
-      name: "graph-demo"
-    }
-  ]);
+  // --- loaded:
+
+  useEffect(() => {
+    queryGraphs("");
+  }, []);
+
+  // --- graphs:
+
+  const queryGraphs = (keyword: string) => {
+    GraphApi.queryGraph((graphs: any[]) => {
+      setGraphs(graphs);
+    });
+  }
+
+  const [graphs, setGraphs] = useState<any[]>([]);
+
+  // --- search:
+
+  const onSearch = (keyword: string) => {
+    console.log(keyword);
+    queryGraphs(keyword);
+  };
+
+  // --- ui:
 
   return (
-    <Space
-      direction="vertical"
-      size="middle"
-      style={{
-        width: "100%",
-        padding: 0,
-      }}>
-      <Space direction="horizontal" size="middle">
-        <Input
-          placeholder="Search"
-          allowClear
-          style={{width: 75, paddingLeft: 5, paddingRight: 5,}}/>
-        <Button type="default"><SearchOutlined/></Button>
-      </Space>
-      <table className="table" style={{width: "auto"}}>
+    <div>
+      <Search className="graph_search" onSearch={onSearch} autoFocus />
+      <table className="table auto">
         <tbody>
         {graphs.map((graph: any, index: number) => (
           <tr key={graph.id} onClick={() => history.push(`/graph/${graph.id}`)}>
@@ -38,7 +45,7 @@ export default forwardRef((props, ref) => {
         ))}
         </tbody>
       </table>
-    </Space>
+    </div>
   );
 
 });
