@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.sunnymix.graphviews.orm.jooq.Tables.GRAPH;
@@ -32,6 +33,16 @@ public class GraphDao {
             .fetchStreamInto(Graph.class)
             .collect(Collectors.toList());
         return graphs;
+    }
+
+    public Optional<Graph> get(String id) {
+        Graph graph;
+        graph = dsl
+            .selectFrom(GRAPH)
+            .where(GRAPH.ID.eq(id))
+            .limit(1)
+            .fetchOneInto(Graph.class);
+        return Optional.of(graph);
     }
 
 }

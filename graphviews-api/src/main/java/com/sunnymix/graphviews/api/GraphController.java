@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author sunnymix
@@ -23,6 +24,12 @@ public class GraphController {
     public Out<List<Graph>> query(@RequestParam("keyword") String keyword) {
         List<Graph> graphs = graphDao.query(keyword);
         return Out.ok(graphs);
+    }
+
+    @GetMapping("/graph/get")
+    public Out<Graph> get(@RequestParam("id") String id) {
+        Optional<Graph> graph = graphDao.get(id);
+        return Out.ok(graph);
     }
 
 }

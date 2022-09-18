@@ -2,6 +2,8 @@ package com.sunnymix.graphviews.common.io;
 
 import lombok.*;
 
+import java.util.Optional;
+
 /**
  * @author sunnymix
  */
@@ -40,6 +42,12 @@ public class Out<T> {
 
     public static <T> Out<T> ok(T data) {
         return of(true, Page.all(), data, null, null);
+    }
+
+    public static <T> Out<T> ok(Optional<T> data) {
+        return data
+            .map(_data -> of(true, Page.all(), _data, null, null))
+            .orElse(ok());
     }
 
     public static <T> Out<T> ok(Page page, T data) {
