@@ -23,10 +23,11 @@ public class GraphDao {
     @Qualifier("dslContext")
     private DSLContext dsl;
 
-    public List<Graph> query() {
+    public List<Graph> query(String keyword) {
         List<Graph> graphs;
         graphs = dsl
             .selectFrom(GRAPH)
+            .where(GRAPH.NAME.contains(keyword))
             .orderBy(GRAPH.CREATED.desc())
             .fetchStreamInto(Graph.class)
             .collect(Collectors.toList());

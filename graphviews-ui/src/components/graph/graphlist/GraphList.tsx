@@ -16,7 +16,7 @@ export default forwardRef((props, ref) => {
   // --- graphs:
 
   const queryGraphs = (keyword: string) => {
-    GraphApi.queryGraph((graphs: any[]) => {
+    GraphApi.queryGraph(keyword, (graphs: any[]) => {
       setGraphs(graphs);
     });
   }
@@ -26,7 +26,6 @@ export default forwardRef((props, ref) => {
   // --- search:
 
   const onSearch = (keyword: string) => {
-    console.log(keyword);
     queryGraphs(keyword);
   };
 
