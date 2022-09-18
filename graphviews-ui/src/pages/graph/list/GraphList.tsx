@@ -1,4 +1,4 @@
-import GraphList from "@/components/graph/graphlist/GraphList";
+import GraphList from "@/components/graph/list/GraphList";
 
 export default () => {
   return (

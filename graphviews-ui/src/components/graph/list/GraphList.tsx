@@ -7,7 +7,7 @@ import "./GraphListStyle.css";
 
 export default forwardRef((props, ref) => {
 
-  // --- loaded:
+  // --- load:
 
   useEffect(() => {
     queryGraphs("");

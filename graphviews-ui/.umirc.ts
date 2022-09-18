@@ -16,6 +16,7 @@ export default defineConfig({
       routes: [
         { path: "/", exact: true, component: "@/pages/index" },
         { path: "/graph", exact: true, component: "@/pages/graph/list/GraphList" },
+        { path: "/graph/:graphId", exact: true, component: "@/pages/graph/graph/Graph" },
       ],
     },
   ],
