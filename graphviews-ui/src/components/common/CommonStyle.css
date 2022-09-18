@@ -57,3 +57,37 @@
 }
 
 /* --- */
+
+table.table {
+  border-collapse: collapse;
+  width: 100%;
+  border-left: 1px solid #dedede;
+  border-right: 1px solid #dedede;
+}
+
+table.auto {
+  width: auto;
+}
+
+table.table th,
+table.table td {
+  padding: 6px 20px;
+  vertical-align: middle;
+  border-top: 1px solid #dedede;
+  border-bottom: 1px solid #dedede;
+}
+
+table.table tbody tr {
+  background-color: #fff;
+}
+
+table.table tbody tr:hover {
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+table.table thead tr {
+  text-align: left;
+  font-weight: 500;
+  background-color: #f8f8f8;
+}

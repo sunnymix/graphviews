@@ -1,4 +1,5 @@
 import Nav from '@/components/common/Nav';
+import "@/components/common/CommonStyle.css";
 import "./style.css";
 
 export default (props: any) => {
