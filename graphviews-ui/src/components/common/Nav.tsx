@@ -23,6 +23,11 @@ const items: NavItemProps[] = [
     path: "/",
     key: "",
   },
+  {
+    label: "Graph",
+    path: "/graph",
+    key: "graph",
+  },
 ];
 
 export default (props: any) => {
@@ -36,6 +41,9 @@ export default (props: any) => {
 
   useEffect(() => {
     var key = "";
+    if (pathname.startsWith("/graph")) {
+      key = "graph";
+    }
     setActiveKey(key);
   }, [pathname]);
 
