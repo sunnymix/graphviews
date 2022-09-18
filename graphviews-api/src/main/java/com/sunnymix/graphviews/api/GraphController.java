@@ -21,13 +21,15 @@ public class GraphController {
     private GraphDao graphDao;
 
     @GetMapping("/graph/query")
-    public Out<List<Graph>> query(@RequestParam("keyword") String keyword) {
+    public Out<List<Graph>> query(
+        @RequestParam(name = "keyword", required = false) String keyword) {
         List<Graph> graphs = graphDao.query(keyword);
         return Out.ok(graphs);
     }
 
     @GetMapping("/graph/get")
-    public Out<Graph> get(@RequestParam("id") String id) {
+    public Out<Graph> get(
+        @RequestParam(name = "id") String id) {
         Optional<Graph> graph = graphDao.get(id);
         return Out.ok(graph);
     }
