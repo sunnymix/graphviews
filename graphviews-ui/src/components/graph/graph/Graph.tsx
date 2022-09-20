@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useState } from "react";
 import "./GraphStyle.css";
 import GraphApi from "../api/GraphApi";
-import { Input, Space } from 'antd';
+import { Input, Col, Row } from 'antd';
 const { TextArea } = Input;
 
 // --- props:
@@ -40,18 +40,22 @@ export default forwardRef((props: GraphProps, ref) => {
 
   // --- ui:
 
-  return (
-    <div>
+  return (<Row>
+    <Col span={8}>
       {graph && <>
-        <div>Name:</div>
+        <div>Name</div>
         <div className="graph_name">
           <Input defaultValue={graph.name}/>
         </div>
-        <div>Source:</div>
+        <div>Source</div>
         <div className="graph_source">
           <TextArea autoSize defaultValue={graph.source}></TextArea></div>
       </>}
-    </div>
-  );
+    </Col>
+    <Col span={16}>
+      <div>View</div>
+      <div></div>
+    </Col>
+  </Row>);
 
 });

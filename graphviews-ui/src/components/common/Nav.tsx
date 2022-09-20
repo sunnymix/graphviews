@@ -11,12 +11,6 @@ interface NavItemProps {
   key?: string,
 };
 
-const createMenu = (
-  <Menu>
-    <Menu.Item key="create-graph">New graph</Menu.Item>
-  </Menu>
-);
-
 const items: NavItemProps[] = [
   {
     label: "Home",
@@ -62,11 +56,6 @@ export default (props: any) => {
         {item.label}
       </div>
     ))}
-    <Dropdown overlay={createMenu} placement="bottomLeft">
-      <div className='nav_new_button'>
-        <PlusOutlined />
-      </div>
-    </Dropdown>
   </div>
   )
 };
