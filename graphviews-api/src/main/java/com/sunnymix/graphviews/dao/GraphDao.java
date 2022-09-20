@@ -1,8 +1,11 @@
 package com.sunnymix.graphviews.dao;
 
 import com.sunnymix.graphviews.orm.jooq.tables.pojos.Graph;
+import com.sunnymix.graphviews.orm.jooq.tables.records.GraphRecord;
 import lombok.Getter;
 import org.jooq.DSLContext;
+import org.jooq.UpdateSetFirstStep;
+import org.jooq.UpdateSetMoreStep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -43,6 +46,29 @@ public class GraphDao {
             .limit(1)
             .fetchOneInto(Graph.class);
         return Optional.of(graph);
+    }
+
+    public Boolean update(
+        String id,
+        Optional<String> name,
+        Optional<String> source) {
+
+        UpdateSetFirstStep<GraphRecord> update = getDsl().update(GRAPH);
+        UpdateSetMoreStep<GraphRecord> set = null;
+
+        if (name.isPresent()) {
+            set = update.set(GRAPH.NAME, name.get());
+        }
+
+        if (source.isPresent()) {
+            set = update.set(GRAPH.SOURCE, source.get());
+        }
+
+        if (set != null) {
+            int updateCount = set.where(GRAPH.ID.eq(id)).execute();
+        }
+
+        return true;
     }
 
 }

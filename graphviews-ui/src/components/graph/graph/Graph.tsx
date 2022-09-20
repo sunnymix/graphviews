@@ -25,23 +25,44 @@ export default forwardRef((props: GraphProps, ref) => {
   // --- load:
 
   useEffect(() => {
-    getGraph(props.id);
+    getGraph();
   }, []);
 
   // --- graph:
 
   const [graph, setGraph] = useState<GraphData|null>(null);
 
-  const getGraph = (id: string) => {
-    GraphApi.getGraph(id, (graph: GraphData|null) => {
-      setGraph(graph || null);
+  const getGraph = () => {
+    GraphApi.getGraph(props.id, (graph: GraphData|null) => {
+      const newGraph = graph || null;
+      if (newGraph) {
+        setName(newGraph.name);
+        setSource(newGraph.source);
+      }
+      setGraph(newGraph);
     });
   };
 
-  // --- save:
+  // --- name:
 
-  const saveGraph = () => {
-    alert('save graph');
+  const [name, setName] = useState<string>("");
+
+  // --- source:
+
+  const [source, setSource] = useState<string>("");
+
+  // --- update graph:
+  
+  // FIXME 更新状态提示：
+  const updateGraph = () => {
+    GraphApi.updateGraph(props.id, {
+      name: name,
+      source: source,
+    }, (success: boolean) => {
+      if (success !== true) {
+        alert("Graph保存失败！");
+      }
+    });
   };
 
   // --- ui:
@@ -49,18 +70,18 @@ export default forwardRef((props: GraphProps, ref) => {
   return (
   <div>
     <div className="graph_actions">
-      <Button type="default" onClick={saveGraph}>保存</Button>
+      <Button type="default" onClick={updateGraph}>保存</Button>
     </div>
     <Row>
       <Col span={8}>
         {graph && <>
           <div>Name</div>
           <div className="graph_name">
-            <Input defaultValue={graph.name}/>
+            <Input value={name} onChange={(e: any) => setName(e.target.value || "")}/>
           </div>
           <div>Source</div>
           <div className="graph_source">
-            <TextArea autoSize defaultValue={graph.source}></TextArea></div>
+            <TextArea autoSize value={source} onChange={(e: any) => setSource(e.target.value || "")}></TextArea></div>
         </>}
       </Col>
       <Col span={16}>

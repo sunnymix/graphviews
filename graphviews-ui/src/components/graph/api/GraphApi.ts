@@ -18,19 +18,35 @@ const queryGraph = (keyword: string, cb: QueryGraphCallback) => {
 
 // --- get graph:
 
-const API_GRAPH_GET = Constant.API_HOST + "/graph/get";
+const API_GRAPH_GET = Constant.API_HOST + "/graph/get/";
 
 type GetGraphCallback = (graph: GraphData|null) => void;
 
 const getGraph = (id: string, cb: GetGraphCallback) => {
-  axios.get(`${API_GRAPH_GET}?id=${id}`)
+  axios.get(API_GRAPH_GET + id)
     .then(res => {
       const graph = res.data?.data || null;
       cb(graph);
     });
 };
 
+// --- update graph:
+
+const API_GRAPH_UPDATE = Constant.API_HOST + "/graph/update/";
+
+type UpdateGraphCallback = (success: boolean) => void;
+
+// FIXME：定义form的类型
+const updateGraph = (id: string, form: any, cb: UpdateGraphCallback) => {
+  axios.post(API_GRAPH_UPDATE + id, form)
+    .then(res => {
+      const success = (res.data?.success === true) || false;
+      cb(success);
+    })
+};
+
 export default {
   queryGraph,
   getGraph,
+  updateGraph,
 };

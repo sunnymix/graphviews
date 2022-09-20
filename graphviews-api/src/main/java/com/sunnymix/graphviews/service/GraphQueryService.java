@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class GraphQueryService {
 
-
+    // FIXME：重构query和get接口
 
 }

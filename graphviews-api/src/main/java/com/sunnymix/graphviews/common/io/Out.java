@@ -16,7 +16,6 @@ public class Out<T> {
     @NonNull
     private Boolean success;
 
-    @NonNull
     private Page page;
 
     private T data;
@@ -34,6 +33,10 @@ public class Out<T> {
         out.setCode(code);
         out.setMsg(msg);
         return out;
+    }
+
+    public static <T> Out<T> of(Boolean success) {
+        return of(success, null, null, null, null);
     }
 
     public static <T> Out<T> ok() {
