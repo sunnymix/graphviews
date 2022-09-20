@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useState } from "react";
 import "./GraphStyle.css";
 import GraphApi from "../api/GraphApi";
-import { Input, Col, Row } from 'antd';
+import { Input, Col, Row, Button } from 'antd';
 const { TextArea } = Input;
 
 // --- props:
@@ -38,24 +38,36 @@ export default forwardRef((props: GraphProps, ref) => {
     });
   };
 
+  // --- save:
+
+  const saveGraph = () => {
+    alert('save graph');
+  };
+
   // --- ui:
 
-  return (<Row>
-    <Col span={8}>
-      {graph && <>
-        <div>Name</div>
-        <div className="graph_name">
-          <Input defaultValue={graph.name}/>
-        </div>
-        <div>Source</div>
-        <div className="graph_source">
-          <TextArea autoSize defaultValue={graph.source}></TextArea></div>
-      </>}
-    </Col>
-    <Col span={16}>
-      <div>View</div>
-      <div></div>
-    </Col>
-  </Row>);
+  return (
+  <div>
+    <div className="graph_actions">
+      <Button type="default" onClick={saveGraph}>保存</Button>
+    </div>
+    <Row>
+      <Col span={8}>
+        {graph && <>
+          <div>Name</div>
+          <div className="graph_name">
+            <Input defaultValue={graph.name}/>
+          </div>
+          <div>Source</div>
+          <div className="graph_source">
+            <TextArea autoSize defaultValue={graph.source}></TextArea></div>
+        </>}
+      </Col>
+      <Col span={16}>
+        <div>View</div>
+        <div></div>
+      </Col>
+    </Row>
+  </div>);
 
 });
