@@ -33,7 +33,10 @@ export default forwardRef((props, ref) => {
 
   return (
     <div>
-      <Search className="graph_search" onSearch={onSearch} autoFocus />
+      <Space className="graph_actions" direction="horizontal">
+        <Search className="graph_actions_search" onSearch={onSearch} autoFocus />
+        <Button className="graph_actions_create" >创建</Button>
+      </Space>
       <table className="table auto">
         <tbody>
         {graphs.map((graph: any, index: number) => (

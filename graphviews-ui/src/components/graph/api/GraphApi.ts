@@ -42,11 +42,26 @@ const updateGraph = (id: string, form: any, cb: UpdateGraphCallback) => {
     .then(res => {
       const success = (res.data?.success === true) || false;
       cb(success);
-    })
+    });
+};
+
+// --- create graph:
+
+const API_GRAPH_CREATE = Constant.API_HOST + "/graph/create";
+
+type CreateGraphCallback = (id: string) => void;
+
+const createGraph = (cb: CreateGraphCallback) => {
+  axios.post(API_GRAPH_CREATE, {})
+    .then(res => {
+      const id = res.data?.data || null;
+      cb(id);
+    });
 };
 
 export default {
   queryGraph,
   getGraph,
   updateGraph,
+  createGraph,
 };

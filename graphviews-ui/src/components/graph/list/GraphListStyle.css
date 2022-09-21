@@ -1,4 +1,7 @@
-.graph_search {
-  width: 300px;
-  margin-bottom: 10px;
+.graph_actions {
+  margin-bottom: 15px;
+}
+
+.graph_actions_search {
+  width: 200px;
 }
