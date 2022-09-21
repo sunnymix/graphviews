@@ -4,6 +4,7 @@ import com.sunnymix.graphviews.common.io.Out;
 import com.sunnymix.graphviews.dao.GraphDao;
 import com.sunnymix.graphviews.data.GraphUpdateForm;
 import com.sunnymix.graphviews.orm.jooq.tables.pojos.Graph;
+import com.sunnymix.graphviews.service.GraphCreateService;
 import com.sunnymix.graphviews.service.GraphUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,9 @@ public class GraphController {
 
     @Autowired
     private GraphUpdateService updateService;
+
+    @Autowired
+    private GraphCreateService createService;
 
     @GetMapping("/graph/query")
     public Out<List<Graph>> query(
@@ -49,6 +53,12 @@ public class GraphController {
         Boolean updateSuccess;
         updateSuccess = updateService.update(id, form);
         return Out.of(updateSuccess);
+    }
+
+    @PostMapping("/graph/create")
+    public Out<String> create() {
+        String id = createService.create();
+        return Out.ok(id);
     }
 
 }

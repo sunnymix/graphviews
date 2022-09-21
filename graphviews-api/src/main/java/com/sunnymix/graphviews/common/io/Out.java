@@ -40,16 +40,16 @@ public class Out<T> {
     }
 
     public static <T> Out<T> ok() {
-        return of(true, Page.empty(), null, null, null);
+        return of(true, null, null, null, null);
     }
 
     public static <T> Out<T> ok(T data) {
-        return of(true, Page.all(), data, null, null);
+        return of(true, null, data, null, null);
     }
 
     public static <T> Out<T> ok(Optional<T> data) {
         return data
-            .map(_data -> of(true, Page.all(), _data, null, null))
+            .map(_data -> of(true, null, _data, null, null))
             .orElse(ok());
     }
 

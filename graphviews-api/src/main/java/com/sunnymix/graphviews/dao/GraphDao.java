@@ -1,5 +1,6 @@
 package com.sunnymix.graphviews.dao;
 
+import com.sunnymix.graphviews.common.Id;
 import com.sunnymix.graphviews.orm.jooq.tables.pojos.Graph;
 import com.sunnymix.graphviews.orm.jooq.tables.records.GraphRecord;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,10 +50,9 @@ public class GraphDao {
         return Optional.of(graph);
     }
 
-    public Boolean update(
-        String id,
-        Optional<String> name,
-        Optional<String> source) {
+    public Boolean update(String id,
+                          Optional<String> name,
+                          Optional<String> source) {
 
         UpdateSetFirstStep<GraphRecord> update = getDsl().update(GRAPH);
         UpdateSetMoreStep<GraphRecord> set = null;
@@ -69,6 +70,17 @@ public class GraphDao {
         }
 
         return true;
+    }
+
+    public String create() {
+        String id = Id.newId();
+        GraphRecord graphRecord = new GraphRecord();
+        graphRecord.setId(id);
+        graphRecord.setName("");
+        graphRecord.setSource("");
+        graphRecord.setCreated(OffsetDateTime.now());
+        dsl.executeInsert(graphRecord);
+        return id;
     }
 
 }
