@@ -1,7 +1,9 @@
 import { forwardRef, useEffect, useState } from "react";
 import "./GraphStyle.css";
 import GraphApi from "../api/GraphApi";
-import { Input, Col, Row, Button, Space } from 'antd';
+import { Input, Col, Row, Button, Space, Popconfirm } from 'antd';
+import { ArrowLeftOutlined } from "@ant-design/icons"
+import { history } from "umi";
 const { TextArea } = Input;
 
 // --- props:
@@ -65,13 +67,22 @@ export default forwardRef((props: GraphProps, ref) => {
     });
   };
 
+  // --- goto graph list:
+
+  const gotoGraphList = () => {
+    history.push("/graph");
+  };
+
   // --- ui:
 
   return (
   <div>
     <Space className="graph_actions" direction="horizontal">
-      <Button type="default">返回</Button>
+      <Button type="default" onClick={gotoGraphList}><ArrowLeftOutlined /></Button>
       <Button type="default" onClick={updateGraph}>保存</Button>
+      <Popconfirm title="确认删除？" okText="Yes" cancelText="No">
+        <Button type="default">删除</Button>
+      </Popconfirm>
     </Space>
     <Row>
       <Col span={8}>
@@ -90,9 +101,6 @@ export default forwardRef((props: GraphProps, ref) => {
         <div></div>
       </Col>
     </Row>
-    <Space className="graph_actions_bottom" direction="horizontal">
-      <Button type="default" onClick={updateGraph} danger>删除</Button>
-    </Space>
   </div>);
 
 });
