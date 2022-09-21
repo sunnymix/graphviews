@@ -29,13 +29,23 @@ export default forwardRef((props, ref) => {
     queryGraphs(keyword);
   };
 
+  // --- create graph:
+
+  const createGraph = () => {
+    GraphApi.createGraph((id: string|null) => {
+      if (id) {
+        history.push("/graph/" + id);
+      }
+    });
+  };
+
   // --- ui:
 
   return (
     <div>
       <Space className="graph_actions" direction="horizontal">
         <Search className="graph_actions_search" onSearch={onSearch} autoFocus />
-        <Button className="graph_actions_create" >创建</Button>
+        <Button className="graph_actions_create" onClick={createGraph}>创建</Button>
       </Space>
       <table className="table auto">
         <tbody>

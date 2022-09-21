@@ -49,7 +49,7 @@ const updateGraph = (id: string, form: any, cb: UpdateGraphCallback) => {
 
 const API_GRAPH_CREATE = Constant.API_HOST + "/graph/create";
 
-type CreateGraphCallback = (id: string) => void;
+type CreateGraphCallback = (id: string|null) => void;
 
 const createGraph = (cb: CreateGraphCallback) => {
   axios.post(API_GRAPH_CREATE, {})
