@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useState } from "react";
 import "./GraphStyle.css";
 import GraphApi from "../api/GraphApi";
-import { Input, Col, Row, Button } from 'antd';
+import { Input, Col, Row, Button, Space } from 'antd';
 const { TextArea } = Input;
 
 // --- props:
@@ -69,9 +69,10 @@ export default forwardRef((props: GraphProps, ref) => {
 
   return (
   <div>
-    <div className="graph_actions">
+    <Space className="graph_actions" direction="horizontal">
+      <Button type="default">返回</Button>
       <Button type="default" onClick={updateGraph}>保存</Button>
-    </div>
+    </Space>
     <Row>
       <Col span={8}>
         {graph && <>
@@ -89,6 +90,9 @@ export default forwardRef((props: GraphProps, ref) => {
         <div></div>
       </Col>
     </Row>
+    <Space className="graph_actions_bottom" direction="horizontal">
+      <Button type="default" onClick={updateGraph} danger>删除</Button>
+    </Space>
   </div>);
 
 });
