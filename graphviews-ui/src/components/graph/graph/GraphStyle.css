@@ -1,5 +1,13 @@
+.graph_content {
+  margin-right: 15px;
+}
+
 .graph_actions {
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
+}
+
+.graph_view {
+  margin-left: 15px;  
 }

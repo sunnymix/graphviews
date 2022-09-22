@@ -59,9 +59,24 @@ const createGraph = (cb: CreateGraphCallback) => {
     });
 };
 
+// --- delete graph:
+
+const API_GRAPH_DELETE = Constant.API_HOST + "/graph/delete/";
+
+type DeleteGraphCallback = (success: boolean) => void;
+
+const deleteGraph = (id: string, cb: DeleteGraphCallback) => {
+  axios.post(API_GRAPH_DELETE + id, {})
+    .then(res => {
+      const id = (res.data?.success === true) || false;
+      cb(id);
+    });
+};
+
 export default {
   queryGraph,
   getGraph,
   updateGraph,
   createGraph,
+  deleteGraph,
 };
