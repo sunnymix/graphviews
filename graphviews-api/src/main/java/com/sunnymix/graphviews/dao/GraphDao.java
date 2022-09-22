@@ -47,7 +47,7 @@ public class GraphDao {
             .where(GRAPH.ID.eq(id))
             .limit(1)
             .fetchOneInto(Graph.class);
-        return Optional.of(graph);
+        return Optional.ofNullable(graph);
     }
 
     public Boolean update(String id,
@@ -56,36 +56,46 @@ public class GraphDao {
 
         UpdateSetFirstStep<GraphRecord> update = getDsl().update(GRAPH);
         UpdateSetMoreStep<GraphRecord> set = null;
-
         if (name.isPresent()) {
             set = update.set(GRAPH.NAME, name.get());
         }
-
         if (source.isPresent()) {
             set = update.set(GRAPH.SOURCE, source.get());
         }
-
         if (set != null) {
             int updateCount = set.where(GRAPH.ID.eq(id)).execute();
         }
-
         return true;
     }
 
     public String create() {
         String id = Id.newId();
-        GraphRecord graphRecord = new GraphRecord();
-        graphRecord.setId(id);
-        graphRecord.setName("");
-        graphRecord.setSource("");
-        graphRecord.setCreated(OffsetDateTime.now());
-        dsl.executeInsert(graphRecord);
+        GraphRecord graph = new GraphRecord();
+        graph.setId(id);
+        graph.setName("");
+        graph.setSource("");
+        graph.setCreated(OffsetDateTime.now());
+        dsl.executeInsert(graph);
         return id;
     }
 
     public Boolean delete(String id) {
         int deleteCount = dsl.deleteFrom(GRAPH).where(GRAPH.ID.eq(id)).execute();
         return true;
+    }
+
+    public Optional<String> copy(String id) {
+        return get(id)
+            .map(fromGraph -> {
+                String newId = Id.newId();
+                GraphRecord graph = new GraphRecord();
+                graph.setId(newId);
+                graph.setName(fromGraph.getName() + "-copy");
+                graph.setSource(fromGraph.getSource());
+                graph.setCreated(OffsetDateTime.now());
+                dsl.executeInsert(graph);
+                return newId;
+            });
     }
 
 }

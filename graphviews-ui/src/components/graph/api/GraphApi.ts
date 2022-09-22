@@ -73,10 +73,25 @@ const deleteGraph = (id: string, cb: DeleteGraphCallback) => {
     });
 };
 
+// --- copy graph:
+
+const API_GRAPH_COPY = Constant.API_HOST + "/graph/copy/";
+
+type CopyGraphCallback = (id: string) => void;
+
+const copyGraph = (id: string, cb: CopyGraphCallback) => {
+  axios.post(API_GRAPH_COPY + id, {})
+    .then(res => {
+      const id = (res.data?.success === true) ? res.data?.data : null;
+      cb(id);
+    });
+};
+
 export default {
   queryGraph,
   getGraph,
   updateGraph,
   createGraph,
   deleteGraph,
+  copyGraph,
 };

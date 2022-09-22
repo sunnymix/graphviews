@@ -4,6 +4,7 @@ import { Space, Input, Button } from "antd";
 const { Search } = Input;
 import { history } from 'umi';
 import "./GraphListStyle.css";
+import moment from "moment";
 
 export default forwardRef((props, ref) => {
 
@@ -39,6 +40,12 @@ export default forwardRef((props, ref) => {
     });
   };
 
+  // --- format created:
+
+  const formatTime = (timestamp: number) => {
+    return moment(new Date(timestamp)).format("YYYY-MM-DD HH:mm")
+  };
+
   // --- ui:
 
   return (
@@ -53,6 +60,7 @@ export default forwardRef((props, ref) => {
           <tr key={graph.id} onClick={() => history.push(`/graph/${graph.id}`)}>
             <td>{graph.id}</td>
             <td>{graph.name}</td>
+            <td>{formatTime(graph.created)}</td>
           </tr>
         ))}
         </tbody>

@@ -4,6 +4,7 @@ import com.sunnymix.graphviews.common.io.Out;
 import com.sunnymix.graphviews.dao.GraphDao;
 import com.sunnymix.graphviews.data.GraphUpdateForm;
 import com.sunnymix.graphviews.orm.jooq.tables.pojos.Graph;
+import com.sunnymix.graphviews.service.graph.GraphCopyService;
 import com.sunnymix.graphviews.service.graph.GraphCreateService;
 import com.sunnymix.graphviews.service.graph.GraphDeleteService;
 import com.sunnymix.graphviews.service.graph.GraphUpdateService;
@@ -32,6 +33,9 @@ public class GraphController {
 
     @Autowired
     private GraphDeleteService deleteService;
+
+    @Autowired
+    private GraphCopyService copyService;
 
     @GetMapping("/graph/query")
     public Out<List<Graph>> query(@RequestParam(name = "keyword", required = false) String keyword) {
@@ -63,6 +67,12 @@ public class GraphController {
     public Out<Void> delete(@PathVariable("id") String id) {
         Boolean deleteSuccess = deleteService.delete(id);
         return Out.of(deleteSuccess);
+    }
+
+    @PostMapping("/graph/copy/{id}")
+    public Out<String> copy(@PathVariable("id") String id) {
+        Optional<String> newId = copyService.copy(id);
+        return newId.map(Out::ok).orElse(Out.error());
     }
 
 }

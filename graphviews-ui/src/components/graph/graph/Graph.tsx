@@ -18,6 +18,7 @@ export interface GraphData {
   id: string,
   name: string,
   source: string,
+  created: string,
 }
 
 // --- component:
@@ -28,7 +29,7 @@ export default forwardRef((props: GraphProps, ref) => {
 
   useEffect(() => {
     getGraph();
-  }, []);
+  }, [props.id]);
 
   // --- graph:
 
@@ -53,6 +54,12 @@ export default forwardRef((props: GraphProps, ref) => {
 
   const [source, setSource] = useState<string>("");
 
+  // --- goto graph by id:
+
+  const gotoGraphById = (id: string) => {
+    history.push("/graph/" + id);
+  };
+
   // --- goto graph list:
 
   const gotoGraphList = () => {
@@ -68,7 +75,7 @@ export default forwardRef((props: GraphProps, ref) => {
       if (success === true) {
         message.info("保存成功！")
       } else {
-        message.info("保存失败！")
+        message.error("保存失败！")
       }
     });
   };
@@ -81,7 +88,20 @@ export default forwardRef((props: GraphProps, ref) => {
         message.info("已删除！");
         gotoGraphList();
       } else {
-        message.info("删除失败！");
+        message.error("删除失败！");
+      }
+    });
+  };
+
+  // --- copy graph:
+
+  const copyGraph = () => {
+    GraphApi.copyGraph(props.id, (id: string) => {
+      if (id) {
+        message.info("复制成功！")
+        gotoGraphById(id);
+      } else {
+        message.error("复制失败！")
       }
     });
   };
@@ -97,6 +117,7 @@ export default forwardRef((props: GraphProps, ref) => {
             <Space direction="horizontal">
               <Button type="default" onClick={gotoGraphList}><ArrowLeftOutlined /></Button>
               <Button type="default" onClick={updateGraph}>保存</Button>
+              <Button type="default" onClick={copyGraph}>复制</Button>
             </Space>
             <div>
               <Popconfirm title="确认删除？" okText="Yes" cancelText="No" onConfirm={deleteGraph}>
@@ -117,7 +138,11 @@ export default forwardRef((props: GraphProps, ref) => {
       </Col>
       <Col span={16}>
         <div className="graph_view">
-          <div>View</div>
+          <div className="graph_actions">
+            <Space direction="horizontal">
+              <Button type="default">刷新</Button>
+            </Space>
+          </div>
           <div></div>
         </div>
       </Col>

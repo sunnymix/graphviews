@@ -58,11 +58,11 @@ public class Out<T> {
     }
 
     public static <T> Out<T> error() {
-        return of(false, Page.empty(), null, "1", "server error");
+        return of(false, null, null, null, null);
     }
 
     public static <T> Out<T> error(String code, String msg) {
-        return of(false, Page.empty(), null, code, msg);
+        return of(false, null, null, code, msg);
     }
 
 }
