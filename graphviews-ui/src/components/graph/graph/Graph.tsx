@@ -4,6 +4,8 @@ import GraphApi from "../api/GraphApi";
 import { Input, Col, Row, Button, Space, Popconfirm, message } from 'antd';
 import { ArrowLeftOutlined } from "@ant-design/icons"
 import { history } from "umi";
+import { ErrorBoundary } from "react-error-boundary";
+import Graphviz from "graphviz-react";
 const { TextArea } = Input;
 
 // --- props:
@@ -63,6 +65,7 @@ export default forwardRef((props: GraphProps, ref) => {
   // --- goto graph list:
 
   const gotoGraphList = () => {
+    updateGraph();
     history.push("/graph");
   };
   
@@ -106,44 +109,94 @@ export default forwardRef((props: GraphProps, ref) => {
     });
   };
 
+  // --- graph view error :
+
+  const graphViewError = (error: any) => {
+    return (
+      <div>
+        <p>An error occurred:</p>
+        <pre>{error.error}</pre>
+      </div>
+    )
+  }
+
+  // --- 
+
+  const graphViewOptions = {
+    height: '3000',
+    width: '3000',
+    tweenPrecision: 1,
+    engine: 'dot',
+    keyMode: 'title',
+    convertEqualSidedPolygons: false,
+    fade: false,
+    growEnteringEdges: false,
+    fit: false,
+    tweenPaths: false,
+    tweenShapes: false,
+    useWorker: false,
+    zoom: false,
+  };
+
+  const [graphView, setGraphView] = useState<JSX.Element>(<></>);
+
+  const renderGraphView = (source: string) => {
+    return (<div>
+      <ErrorBoundary 
+        FallbackComponent={graphViewError} 
+        onError={(error, info) => console.log(error)}
+        onReset={() => setSource(graph?.source || "")}
+        resetKeys={[source]}>
+        <Graphviz dot={source} options={graphViewOptions} />
+      </ErrorBoundary>
+    </div>);
+  };
+
+  useEffect(() => {
+    if (source) {
+      try {
+        setGraphView(renderGraphView(source));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [source]);
+
   // --- ui:
 
   return (
   <div>
     <Row>
-      <Col span={8}>
+      <Col span={10}>
         <div className="graph_content">
           <div className="graph_actions">
             <Space direction="horizontal">
               <Button type="default" onClick={gotoGraphList}><ArrowLeftOutlined /></Button>
               <Button type="default" onClick={updateGraph}>保存</Button>
-              <Button type="default" onClick={copyGraph}>复制</Button>
             </Space>
-            <div>
+            <Space>
+              <Button type="default" onClick={copyGraph}>复制</Button>
               <Popconfirm title="确认删除？" okText="Yes" cancelText="No" onConfirm={deleteGraph}>
                 <Button type="default">删除</Button>
               </Popconfirm>
-            </div>
+            </Space>
           </div>
-          {graph && <>
+          {graph && <div>
             <div>Name</div>
             <div className="graph_name">
               <Input value={name} onChange={(e: any) => setName(e.target.value || "")}/>
             </div>
             <div>Source</div>
             <div className="graph_source">
-              <TextArea autoSize value={source} onChange={(e: any) => setSource(e.target.value || "")}></TextArea></div>
-          </>}
+              <TextArea className="graph_source_text" autoSize value={source} onChange={(e: any) => setSource(e.target.value || "")}></TextArea></div>
+          </div>}
         </div>
       </Col>
-      <Col span={16}>
+      <Col span={14}>
         <div className="graph_view">
-          <div className="graph_actions">
-            <Space direction="horizontal">
-              <Button type="default">刷新</Button>
-            </Space>
+          <div>
+            {graphView}
           </div>
-          <div></div>
         </div>
       </Col>
     </Row>

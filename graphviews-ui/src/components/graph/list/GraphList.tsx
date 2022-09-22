@@ -50,10 +50,12 @@ export default forwardRef((props, ref) => {
 
   return (
     <div>
-      <Space className="graph_actions" direction="horizontal">
-        <Search className="graph_actions_search" onSearch={onSearch} autoFocus />
-        <Button className="graph_actions_create" onClick={createGraph}>创建</Button>
-      </Space>
+      <div className="graph_actions">
+        <Space direction="horizontal">
+          <Search className="graph_actions_search" onSearch={onSearch} autoFocus />
+          <Button className="graph_actions_create" onClick={createGraph}>创建</Button>
+        </Space>
+      </div>
       <table className="table auto">
         <tbody>
         {graphs.map((graph: any, index: number) => (

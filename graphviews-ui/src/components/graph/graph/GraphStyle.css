@@ -9,5 +9,9 @@
 }
 
 .graph_view {
-  margin-left: 15px;  
+  margin-left: 15px;
+}
+
+.graph_source_text {
+  font-family: 'Verily';
 }
