@@ -65,7 +65,6 @@ export default forwardRef((props: GraphProps, ref) => {
   // --- goto graph list:
 
   const gotoGraphList = () => {
-    updateGraph();
     history.push("/graph");
   };
   
