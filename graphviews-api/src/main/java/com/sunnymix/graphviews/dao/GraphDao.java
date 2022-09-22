@@ -83,4 +83,9 @@ public class GraphDao {
         return id;
     }
 
+    public Boolean delete(String id) {
+        int deleteCount = dsl.deleteFrom(GRAPH).where(GRAPH.ID.eq(id)).execute();
+        return true;
+    }
+
 }

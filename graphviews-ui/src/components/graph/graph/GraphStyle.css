@@ -1,8 +1,5 @@
-
 .graph_actions {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 15px;
-}
-
-.graph_actions_bottom {
-  margin-top: 15px;
 }

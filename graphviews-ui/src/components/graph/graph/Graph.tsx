@@ -77,15 +77,19 @@ export default forwardRef((props: GraphProps, ref) => {
 
   return (
   <div>
-    <Space className="graph_actions" direction="horizontal">
-      <Button type="default" onClick={gotoGraphList}><ArrowLeftOutlined /></Button>
-      <Button type="default" onClick={updateGraph}>保存</Button>
-      <Popconfirm title="确认删除？" okText="Yes" cancelText="No">
-        <Button type="default">删除</Button>
-      </Popconfirm>
-    </Space>
     <Row>
       <Col span={8}>
+        <div className="graph_actions">
+          <Space direction="horizontal">
+            <Button type="default" onClick={gotoGraphList}><ArrowLeftOutlined /></Button>
+            <Button type="default" onClick={updateGraph}>保存</Button>
+          </Space>
+          <div>
+            <Popconfirm title="确认删除？" okText="Yes" cancelText="No">
+              <Button type="default">删除</Button>
+            </Popconfirm>
+          </div>
+        </div>
         {graph && <>
           <div>Name</div>
           <div className="graph_name">

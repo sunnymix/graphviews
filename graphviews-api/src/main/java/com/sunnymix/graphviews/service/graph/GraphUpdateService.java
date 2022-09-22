@@ -1,4 +1,4 @@
-package com.sunnymix.graphviews.service;
+package com.sunnymix.graphviews.service.graph;
 
 import com.sunnymix.graphviews.dao.GraphDao;
 import com.sunnymix.graphviews.data.GraphUpdateForm;

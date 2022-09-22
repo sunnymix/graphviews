@@ -1,4 +1,4 @@
-package com.sunnymix.graphviews.service;
+package com.sunnymix.graphviews.service.graph;
 
 import org.springframework.stereotype.Service;
 
