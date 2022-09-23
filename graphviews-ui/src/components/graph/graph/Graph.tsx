@@ -187,7 +187,7 @@ export default forwardRef((props: GraphProps, ref) => {
             </div>
             <div>Source</div>
             <div className="graph_source">
-              <TextArea className="graph_source_text" autoSize value={source} onChange={(e: any) => setSource(e.target.value || "")}></TextArea></div>
+              <TextArea className="graph_source_text" autoSize autoFocus value={source} onChange={(e: any) => setSource(e.target.value || "")}></TextArea></div>
           </div>}
         </div>
       </Col>
