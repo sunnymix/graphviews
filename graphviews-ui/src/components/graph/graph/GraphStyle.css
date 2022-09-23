@@ -10,6 +10,7 @@
 
 .graph_view {
   margin-left: 15px;
+  border: 1px solid #dddddd;
 }
 
 .graph_source_text {
