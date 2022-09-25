@@ -17,11 +17,6 @@ import java.util.Optional;
 @RestController
 public class GraphController {
 
-    // FIXME：query接口重构为通过queryService访问
-
-    @Autowired
-    private GraphDao graphDao;
-
     @Autowired
     private GraphQueryService queryService;
 
@@ -39,7 +34,7 @@ public class GraphController {
 
     @GetMapping("/graph/query")
     public Out<List<Graph>> query(@RequestParam(name = "keyword", required = false) String keyword) {
-        List<Graph> graphs = graphDao.query(keyword);
+        List<Graph> graphs = queryService.query(keyword);
         return Out.ok(graphs);
     }
 

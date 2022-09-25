@@ -5,6 +5,7 @@ import com.sunnymix.graphviews.orm.jooq.tables.pojos.Graph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -16,10 +17,12 @@ public class GraphQueryService {
     @Autowired
     private GraphDao graphDao;
 
+    public List<Graph> query(String keyword) {
+        return graphDao.query(keyword);
+    }
+
     public Optional<Graph> get(String id) {
         return graphDao.get(id);
     }
-
-    // FIXME：重构query接口
 
 }
