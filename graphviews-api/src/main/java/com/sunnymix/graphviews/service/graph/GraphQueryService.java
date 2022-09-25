@@ -1,6 +1,11 @@
 package com.sunnymix.graphviews.service.graph;
 
+import com.sunnymix.graphviews.dao.GraphDao;
+import com.sunnymix.graphviews.orm.jooq.tables.pojos.Graph;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * @author sunnymix
@@ -8,6 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class GraphQueryService {
 
-    // FIXME：重构query和get接口
+    @Autowired
+    private GraphDao graphDao;
+
+    public Optional<Graph> get(String id) {
+        return graphDao.get(id);
+    }
+
+    // FIXME：重构query接口
 
 }

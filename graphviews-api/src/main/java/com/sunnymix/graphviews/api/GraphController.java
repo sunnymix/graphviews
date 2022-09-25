@@ -4,10 +4,7 @@ import com.sunnymix.graphviews.common.io.Out;
 import com.sunnymix.graphviews.dao.GraphDao;
 import com.sunnymix.graphviews.data.GraphUpdateForm;
 import com.sunnymix.graphviews.orm.jooq.tables.pojos.Graph;
-import com.sunnymix.graphviews.service.graph.GraphCopyService;
-import com.sunnymix.graphviews.service.graph.GraphCreateService;
-import com.sunnymix.graphviews.service.graph.GraphDeleteService;
-import com.sunnymix.graphviews.service.graph.GraphUpdateService;
+import com.sunnymix.graphviews.service.graph.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +17,13 @@ import java.util.Optional;
 @RestController
 public class GraphController {
 
-    // FIXME：query和get接口重构为通过queryService访问
+    // FIXME：query接口重构为通过queryService访问
 
     @Autowired
     private GraphDao graphDao;
+
+    @Autowired
+    private GraphQueryService queryService;
 
     @Autowired
     private GraphUpdateService updateService;
@@ -39,14 +39,13 @@ public class GraphController {
 
     @GetMapping("/graph/query")
     public Out<List<Graph>> query(@RequestParam(name = "keyword", required = false) String keyword) {
-
         List<Graph> graphs = graphDao.query(keyword);
         return Out.ok(graphs);
     }
 
     @GetMapping("/graph/get/{id}")
     public Out<Graph> get(@PathVariable("id") String id) {
-        Optional<Graph> graph = graphDao.get(id);
+        Optional<Graph> graph = queryService.get(id);
         return Out.ok(graph);
     }
 
