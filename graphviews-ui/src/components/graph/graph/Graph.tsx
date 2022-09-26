@@ -5,8 +5,8 @@ import { Input, Col, Row, Button, Space, Popconfirm, message } from 'antd';
 import { ArrowLeftOutlined } from "@ant-design/icons"
 import { history } from "umi";
 import { ErrorBoundary } from "react-error-boundary";
-import Graphviz from "graphviz-react";
 const { TextArea } = Input;
+import { graphviz, GraphvizOptions, Engine } from "d3-graphviz";
 
 // --- props:
 
@@ -108,52 +108,30 @@ export default forwardRef((props: GraphProps, ref) => {
     });
   };
 
-  // --- graph view error:
-
-  const graphViewError = (error: any) => {
-    return (
-      <div>
-        <p>An error occurred:</p>
-        <pre>{error.error}</pre>
-      </div>
-    )
-  }
-
   // --- graph view options:
 
-  const graphViewOptions = {
-    tweenPrecision: 1,
-    engine: 'dot',
-    keyMode: 'title',
-    convertEqualSidedPolygons: false,
+  const graphViewOptions: GraphvizOptions = {
+    useWorker: false,
+    engine: "dot",
+    keyMode: "title",
     fade: false,
-    growEnteringEdges: false,
-    fit: false,
     tweenPaths: false,
     tweenShapes: false,
-    useWorker: false,
+    convertEqualSidedPolygons: false,
+    tweenPrecision: 1,
+    growEnteringEdges: false,
     zoom: false,
+    scale: 1,
+    fit: false,
   };
 
   // --- graph view ref:
 
   const graphViewRef = useRef<any>(null);
 
-  // --- graph view:
+  // --- graph view error:
 
-  const [graphView, setGraphView] = useState<JSX.Element>(<></>);
-
-  const renderGraphView = (source: string) => {
-    return (<div>
-      <ErrorBoundary 
-        FallbackComponent={graphViewError} 
-        onError={(error, info) => console.log(error)}
-        onReset={() => setSource(graph?.source || "")}
-        resetKeys={[source]}>
-        <Graphviz ref={graphViewRef} dot={source} options={graphViewOptions} />
-      </ErrorBoundary>
-    </div>);
-  };
+  const [graphViewError, setGraphViewError] = useState<string>("");
 
   // --- update graph viewbox:
 
@@ -170,17 +148,17 @@ export default forwardRef((props: GraphProps, ref) => {
     }
   };
 
-  useEffect(updateGraphViewbox, [graphView]);
+  useEffect(updateGraphViewbox, [source]);
 
   // --- update graph:
 
   useEffect(() => {
     if (source) {
       try {
-        setGraphView(renderGraphView(source));
-
+        graphviz(".graph_view_content", graphViewOptions).renderDot(source);
+        setGraphViewError("");
       } catch (error) {
-        console.log('→ error occured when update graph view, ', error);
+        setGraphViewError("Error: " + error);
       }
     }
   }, [source]);
@@ -216,8 +194,10 @@ export default forwardRef((props: GraphProps, ref) => {
         </div>
       </Col>
       <Col span={14}>
-        <div className="graph_view" id="graph_view">
-          {graphView}
+        <div className="graph_view">
+          <div className="graph_view_content"></div>
+          {/* FIXME：调整error展示样式 */}
+          <div className="graph_view_error">{graphViewError}</div>
         </div>
       </Col>
     </Row>
