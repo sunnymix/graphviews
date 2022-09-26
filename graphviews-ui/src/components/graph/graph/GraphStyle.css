@@ -17,6 +17,6 @@
 }
 
 .graph_view svg {
-  outline: 1px solid #eeeeee;
-  outline-offset: 0;
+  outline: 0px solid #eeeeee;
+  outline-offset: 0px;
 }

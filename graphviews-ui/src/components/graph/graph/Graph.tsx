@@ -152,6 +152,8 @@ export default forwardRef((props: GraphProps, ref) => {
 
   // --- update graph:
 
+  // FIXME：实时保存图形内容，并展示上次保存成功的时间
+
   useEffect(() => {
     if (source) {
       try {
@@ -162,6 +164,13 @@ export default forwardRef((props: GraphProps, ref) => {
       }
     }
   }, [source]);
+
+  // --- save graph name:
+
+  const saveGraphName = (name: string) => {
+    setName(name);
+    updateGraph();
+  };
 
   // --- ui:
 
@@ -185,7 +194,10 @@ export default forwardRef((props: GraphProps, ref) => {
           {graph && <div>
             <div>Name</div>
             <div className="graph_name">
-              <Input value={name} onChange={(e: any) => setName(e.target.value || "")}/>
+              <Input
+                value={name}
+                onChange={(e: any) => setName(e.target.value || "")}
+                onPressEnter={(e: any) => saveGraphName(e.target.value || "")}/>
             </div>
             <div>Source</div>
             <div className="graph_source">
