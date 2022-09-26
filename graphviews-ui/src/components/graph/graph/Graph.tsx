@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import "./GraphStyle.css";
 import GraphApi from "../api/GraphApi";
 import { Input, Col, Row, Button, Space, Popconfirm, message } from 'antd';
@@ -108,7 +108,7 @@ export default forwardRef((props: GraphProps, ref) => {
     });
   };
 
-  // --- graph view error :
+  // --- graph view error:
 
   const graphViewError = (error: any) => {
     return (
@@ -119,11 +119,9 @@ export default forwardRef((props: GraphProps, ref) => {
     )
   }
 
-  // --- 
+  // --- graph view options:
 
   const graphViewOptions = {
-    height: '3000',
-    width: '3000',
     tweenPrecision: 1,
     engine: 'dot',
     keyMode: 'title',
@@ -137,6 +135,12 @@ export default forwardRef((props: GraphProps, ref) => {
     zoom: false,
   };
 
+  // --- graph view ref:
+
+  const graphViewRef = useRef<any>(null);
+
+  // --- graph view:
+
   const [graphView, setGraphView] = useState<JSX.Element>(<></>);
 
   const renderGraphView = (source: string) => {
@@ -146,17 +150,37 @@ export default forwardRef((props: GraphProps, ref) => {
         onError={(error, info) => console.log(error)}
         onReset={() => setSource(graph?.source || "")}
         resetKeys={[source]}>
-        <Graphviz dot={source} options={graphViewOptions} />
+        <Graphviz ref={graphViewRef} dot={source} options={graphViewOptions} />
       </ErrorBoundary>
     </div>);
   };
+
+  // --- update graph viewbox:
+
+  const updateGraphViewbox = () => {
+    if (graphViewRef.current) {
+      const svgArr = document.getElementById('graph_view')?.getElementsByTagName('svg');
+      if (svgArr && svgArr.length > 0) {
+        const svg = svgArr[0];
+        const { x, y, width, height } = svg.getBBox();
+        svg.setAttribute("width", width + "");
+        svg.setAttribute("height", height + "");
+        svg.setAttribute("viewBox", `${x} ${y} ${width} ${height}`);
+      }
+    }
+  };
+
+  useEffect(updateGraphViewbox, [graphView]);
+
+  // --- update graph:
 
   useEffect(() => {
     if (source) {
       try {
         setGraphView(renderGraphView(source));
+
       } catch (error) {
-        console.log(error);
+        console.log('→ error occured when update graph view, ', error);
       }
     }
   }, [source]);
@@ -192,10 +216,8 @@ export default forwardRef((props: GraphProps, ref) => {
         </div>
       </Col>
       <Col span={14}>
-        <div className="graph_view">
-          <div>
-            {graphView}
-          </div>
+        <div className="graph_view" id="graph_view">
+          {graphView}
         </div>
       </Col>
     </Row>
