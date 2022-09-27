@@ -135,8 +135,6 @@ export default forwardRef((props: GraphProps, ref) => {
 
   // --- update graph:
 
-  // FIXME：实时保存图形内容，并展示上次保存成功的时间
-
   useEffect(() => {
     if (source) {
       try {
