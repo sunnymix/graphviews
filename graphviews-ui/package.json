@@ -27,7 +27,8 @@
     "react-dom": "18.x",
     "umi": "^3.5.20",
     "react-error-boundary": "3.1.4",
-    "d3-graphviz": "^2.6.1"
+    "d3-graphviz": "^2.6.1",
+    "html2canvas": "^1.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.6",

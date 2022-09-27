@@ -4,9 +4,9 @@ import GraphApi from "../api/GraphApi";
 import { Input, Col, Row, Button, Space, Popconfirm, message } from 'antd';
 import { ArrowLeftOutlined } from "@ant-design/icons"
 import { history } from "umi";
-import { ErrorBoundary } from "react-error-boundary";
 const { TextArea } = Input;
-import { graphviz, GraphvizOptions, Engine } from "d3-graphviz";
+import { graphviz, GraphvizOptions } from "d3-graphviz";
+import html2canvas from "html2canvas";
 
 // --- props:
 
@@ -133,23 +133,6 @@ export default forwardRef((props: GraphProps, ref) => {
 
   const [graphViewError, setGraphViewError] = useState<string>("");
 
-  // --- update graph viewbox:
-
-  const updateGraphViewbox = () => {
-    if (graphViewRef.current) {
-      const svgArr = document.getElementById('graph_view')?.getElementsByTagName('svg');
-      if (svgArr && svgArr.length > 0) {
-        const svg = svgArr[0];
-        const { x, y, width, height } = svg.getBBox();
-        svg.setAttribute("width", width + "");
-        svg.setAttribute("height", height + "");
-        svg.setAttribute("viewBox", `${x} ${y} ${width} ${height}`);
-      }
-    }
-  };
-
-  useEffect(updateGraphViewbox, [source]);
-
   // --- update graph:
 
   // FIXME：实时保存图形内容，并展示上次保存成功的时间
@@ -189,6 +172,12 @@ export default forwardRef((props: GraphProps, ref) => {
     }
   };
 
+  // --- save image:
+
+  const saveImage = (e: any) => {
+    message.info("save image");
+  };
+
   // --- ui:
 
   return (
@@ -199,10 +188,13 @@ export default forwardRef((props: GraphProps, ref) => {
           <div className="graph_actions">
             <Space direction="horizontal">
               <Button type="default" onClick={gotoGraphList}><ArrowLeftOutlined /></Button>
+            </Space>
+            <Space direction="horizontal">
               <Button type="default" onClick={updateGraph}>保存</Button>
+              <Button type="default" onClick={copyGraph}>复制</Button>
+              <Button type="default" onClick={saveImage}>存图</Button>
             </Space>
             <Space>
-              <Button type="default" onClick={copyGraph}>复制</Button>
               <Popconfirm title="确认删除？" okText="Yes" cancelText="No" onConfirm={deleteGraph}>
                 <Button type="default">删除</Button>
               </Popconfirm>
