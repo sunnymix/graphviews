@@ -203,6 +203,7 @@ export default forwardRef((props: GraphProps, ref) => {
   return (
   <div>
     <Row>
+      {/* FIXME：左侧添加Graph列表和搜索 */}
       <Col span={10}>
         <div className="graph_content">
           <div className="graph_actions">
@@ -230,6 +231,7 @@ export default forwardRef((props: GraphProps, ref) => {
             </div>
             <div className="label">Source</div>
             <div className="graph_source">
+              {/* FIXME：集成代码编辑器 */}
               <TextArea 
                 className="graph_source_text" autoSize autoFocus value={source} 
                 onChange={(e: any) => setSource(e.target.value || "")}

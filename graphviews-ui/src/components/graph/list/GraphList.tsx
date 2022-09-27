@@ -51,7 +51,7 @@ export default forwardRef((props, ref) => {
   return (
     <div>
       <div className="graph_actions">
-        <Space direction="horizontal">
+        <Space direction="horizontal" size="middle">
           <Search className="graph_actions_search" onSearch={onSearch} autoFocus />
           <Button className="graph_actions_create" onClick={createGraph}>创建</Button>
         </Space>

@@ -10,7 +10,19 @@
   background-color: #00000010;
 }
 
-/* --- btn: */
+/* --- label --- */
+
+.label {
+  display: inline-block;
+  font-weight: 500;
+  padding: 10px 0;
+}
+
+.label::after {
+  content: ":";
+}
+
+/* --- btn --- */
 
 .btn {
   cursor: pointer;
