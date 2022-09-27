@@ -7,6 +7,7 @@ import { history } from "umi";
 const { TextArea } = Input;
 import { graphviz, GraphvizOptions } from "d3-graphviz";
 import html2canvas from "html2canvas";
+import GraphList from "../list/GraphList";
 
 // --- props:
 
@@ -202,51 +203,49 @@ export default forwardRef((props: GraphProps, ref) => {
 
   return (
   <div>
-    <Row>
-      {/* FIXME：左侧添加Graph列表和搜索 */}
-      <Col span={10}>
-        <div className="graph_content">
-          <div className="graph_actions">
-            <Space direction="horizontal" size="middle">
-              <Button type="default" onClick={gotoGraphList}><ArrowLeftOutlined /></Button>
-            </Space>
-            <Space direction="horizontal" size="middle">
-              <Button type="default" onClick={updateGraph}>保存</Button>
-              <Button type="default" onClick={copyGraph}>复制</Button>
-              <Button type="default" onClick={saveImage}>存图</Button>
-            </Space>
-            <Space direction="horizontal" size="middle">
-              <Popconfirm title="确认删除？" okText="Yes" cancelText="No" onConfirm={deleteGraph}>
-                <Button type="default">删除</Button>
-              </Popconfirm>
-            </Space>
+    <div className="graph_bench">
+      <div className="graph_list">
+        <GraphList />
+      </div>
+      <div className="graph_content">
+        <div className="graph_actions">
+          <Space direction="horizontal" size="middle">
+            <Button type="default" onClick={gotoGraphList}><ArrowLeftOutlined /></Button>
+          </Space>
+          <Space direction="horizontal" size="middle">
+            <Button type="default" onClick={updateGraph}>保存</Button>
+            <Button type="default" onClick={copyGraph}>复制</Button>
+            <Button type="default" onClick={saveImage}>存图</Button>
+          </Space>
+          <Space direction="horizontal" size="middle">
+            <Popconfirm title="确认删除？" okText="Yes" cancelText="No" onConfirm={deleteGraph}>
+              <Button type="default">删除</Button>
+            </Popconfirm>
+          </Space>
+        </div>
+        {graph && <div>
+          <div className="label">Name</div>
+          <div className="graph_name">
+            <Input
+              value={name}
+              onChange={(e: any) => setName(e.target.value || "")}
+              onKeyDown={nameOnKeyDown}/>
           </div>
-          {graph && <div>
-            <div className="label">Name</div>
-            <div className="graph_name">
-              <Input
-                value={name}
-                onChange={(e: any) => setName(e.target.value || "")}
-                onKeyDown={nameOnKeyDown}/>
-            </div>
-            <div className="label">Source</div>
-            <div className="graph_source">
-              {/* FIXME：集成代码编辑器 */}
-              <TextArea 
-                className="graph_source_text" autoSize autoFocus value={source} 
-                onChange={(e: any) => setSource(e.target.value || "")}
-                onKeyDown={sourceOnKeyDown}></TextArea></div>
-          </div>}
-        </div>
-      </Col>
-      <Col span={14}>
-        <div className="graph_view">
-          <div className="graph_view_content" ref={graphViewContentRef}></div>
-          {/* FIXME：调整error展示样式 */}
-          <div className="graph_view_error">{graphViewError}</div>
-        </div>
-      </Col>
-    </Row>
+          <div className="label">Source</div>
+          <div className="graph_source">
+            {/* FIXME：集成代码编辑器 */}
+            <TextArea 
+              className="graph_source_text" autoSize autoFocus value={source} 
+              onChange={(e: any) => setSource(e.target.value || "")}
+              onKeyDown={sourceOnKeyDown}></TextArea></div>
+        </div>}
+      </div>
+      <div className="graph_view">
+        <div className="graph_view_content" ref={graphViewContentRef}></div>
+        {/* FIXME：调整error展示样式 */}
+        <div className="graph_view_error">{graphViewError}</div>
+      </div>
+    </div>
   </div>);
 
 });

@@ -60,9 +60,7 @@ export default forwardRef((props, ref) => {
         <tbody>
         {graphs.map((graph: any, index: number) => (
           <tr key={graph.id} onClick={() => history.push(`/graph/${graph.id}`)}>
-            <td>{graph.id}</td>
             <td>{graph.name}</td>
-            <td>{formatTime(graph.created)}</td>
           </tr>
         ))}
         </tbody>

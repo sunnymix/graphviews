@@ -1,5 +1,11 @@
+.graph_bench {
+  display: flex;
+}
+
 .graph_content {
+  margin-left: 20px;
   margin-right: 20px;
+  min-width: 800px;
 }
 
 .graph_actions {
