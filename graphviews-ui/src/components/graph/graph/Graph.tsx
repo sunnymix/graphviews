@@ -146,11 +146,21 @@ export default forwardRef((props: GraphProps, ref) => {
     }
   }, [source]);
 
-  // --- save graph name:
+  // --- name key down:
 
-  const saveGraphName = (name: string) => {
-    setName(name);
-    updateGraph();
+  const nameOnKeyDown = (e: any) => {
+    const code = e.code;
+    const isCmd = e.metaKey;
+    const isShift = e.shiftKey;
+    const isOpt = e.altKey;
+    const isCtr = e.ctrlKey;
+
+    if (code == "KeyS") {
+      if (isCmd) {
+        e.preventDefault();
+        updateGraph();
+      }
+    }
   };
 
   // --- source key down:
@@ -175,7 +185,7 @@ export default forwardRef((props: GraphProps, ref) => {
   const saveImage = (e: any) => {
     if (graphViewContentRef.current) {
       html2canvas(graphViewContentRef.current, {}).then((canvas: any) => {
-        const image = canvas.toDataURL("image/png", 1.0);  
+        const image = canvas.toDataURL("image/png", 1.0);
         const fakeA = window.document.createElement("a");
         fakeA.download = `graph-${name}-${+(new Date())}.png`;
         fakeA.href = image;
@@ -196,29 +206,29 @@ export default forwardRef((props: GraphProps, ref) => {
       <Col span={10}>
         <div className="graph_content">
           <div className="graph_actions">
-            <Space direction="horizontal">
+            <Space direction="horizontal" size="middle">
               <Button type="default" onClick={gotoGraphList}><ArrowLeftOutlined /></Button>
             </Space>
-            <Space direction="horizontal">
+            <Space direction="horizontal" size="middle">
               <Button type="default" onClick={updateGraph}>保存</Button>
               <Button type="default" onClick={copyGraph}>复制</Button>
               <Button type="default" onClick={saveImage}>存图</Button>
             </Space>
-            <Space>
+            <Space direction="horizontal" size="middle">
               <Popconfirm title="确认删除？" okText="Yes" cancelText="No" onConfirm={deleteGraph}>
                 <Button type="default">删除</Button>
               </Popconfirm>
             </Space>
           </div>
           {graph && <div>
-            <div>Name</div>
+            <div className="label">Name</div>
             <div className="graph_name">
               <Input
                 value={name}
                 onChange={(e: any) => setName(e.target.value || "")}
-                onPressEnter={(e: any) => saveGraphName(e.target.value || "")}/>
+                onKeyDown={nameOnKeyDown}/>
             </div>
-            <div>Source</div>
+            <div className="label">Source</div>
             <div className="graph_source">
               <TextArea 
                 className="graph_source_text" autoSize autoFocus value={source} 
