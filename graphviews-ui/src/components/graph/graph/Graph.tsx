@@ -127,7 +127,7 @@ export default forwardRef((props: GraphProps, ref) => {
 
   // --- graph view ref:
 
-  const graphViewRef = useRef<any>(null);
+  const graphViewContentRef = useRef<any>(null);
 
   // --- graph view error:
 
@@ -173,7 +173,19 @@ export default forwardRef((props: GraphProps, ref) => {
   // --- save image:
 
   const saveImage = (e: any) => {
-    message.info("save image");
+    if (graphViewContentRef.current) {
+      html2canvas(graphViewContentRef.current, {}).then((canvas: any) => {
+        const image = canvas.toDataURL("image/png", 1.0);  
+        const fakeA = window.document.createElement("a");
+        fakeA.download = `graph-${name}-${+(new Date())}.png`;
+        fakeA.href = image;
+        const body = window.document.getElementsByTagName('body')[0];
+        body.appendChild(fakeA);
+        fakeA.click();
+        body.removeChild(fakeA);
+        message.info("存图成功！");
+      }); 
+    }
   };
 
   // --- ui:
@@ -217,7 +229,7 @@ export default forwardRef((props: GraphProps, ref) => {
       </Col>
       <Col span={14}>
         <div className="graph_view">
-          <div className="graph_view_content"></div>
+          <div className="graph_view_content" ref={graphViewContentRef}></div>
           {/* FIXME：调整error展示样式 */}
           <div className="graph_view_error">{graphViewError}</div>
         </div>

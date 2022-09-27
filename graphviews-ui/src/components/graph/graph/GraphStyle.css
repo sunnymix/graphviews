@@ -20,3 +20,7 @@
   outline: 0px solid #eeeeee;
   outline-offset: 0px;
 }
+
+.graph_view_content {
+  display: inline-block;
+}
