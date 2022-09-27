@@ -172,6 +172,23 @@ export default forwardRef((props: GraphProps, ref) => {
     updateGraph();
   };
 
+  // --- source key down:
+
+  const sourceOnKeyDown = (e: any) => {
+    const code = e.code;
+    const isCmd = e.metaKey;
+    const isShift = e.shiftKey;
+    const isOpt = e.altKey;
+    const isCtr = e.ctrlKey;
+
+    if (code == "KeyS") {
+      if (isCmd) {
+        e.preventDefault();
+        updateGraph();
+      }
+    }
+  };
+
   // --- ui:
 
   return (
@@ -201,7 +218,10 @@ export default forwardRef((props: GraphProps, ref) => {
             </div>
             <div>Source</div>
             <div className="graph_source">
-              <TextArea className="graph_source_text" autoSize autoFocus value={source} onChange={(e: any) => setSource(e.target.value || "")}></TextArea></div>
+              <TextArea 
+                className="graph_source_text" autoSize autoFocus value={source} 
+                onChange={(e: any) => setSource(e.target.value || "")}
+                onKeyDown={sourceOnKeyDown}></TextArea></div>
           </div>}
         </div>
       </Col>
