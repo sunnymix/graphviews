@@ -32,7 +32,7 @@ export default forwardRef((props: GraphProps, ref) => {
 
   useEffect(() => {
     getGraph();
-    setGraphListRefreshSignal(`refresh-graph-list:${+(new Date())}`);
+    refreshGraphList();
   }, [props.id]);
 
   // --- graph:
@@ -78,6 +78,7 @@ export default forwardRef((props: GraphProps, ref) => {
     }, (success: boolean) => {
       if (success === true) {
         message.info("保存成功！")
+        refreshGraphList();
       } else {
         message.error("保存失败！")
       }
@@ -203,6 +204,10 @@ export default forwardRef((props: GraphProps, ref) => {
   // --- refresh graph list:
 
   const [graphListRefreshSignal, setGraphListRefreshSignal] = useState<string|undefined>();
+
+  const refreshGraphList = () => {
+    setGraphListRefreshSignal(`refresh-graph-list:${+(new Date())}`);
+  };
 
   // --- ui:
 
