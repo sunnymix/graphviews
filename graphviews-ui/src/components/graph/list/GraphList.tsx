@@ -6,13 +6,17 @@ import { history } from 'umi';
 import "./GraphListStyle.css";
 import moment from "moment";
 
-export default forwardRef((props, ref) => {
+export interface GraphListProps {
+  refreshSignal?: string
+}
+
+export default forwardRef((props: GraphListProps, ref) => {
 
   // --- load:
 
   useEffect(() => {
     queryGraphs("");
-  }, []);
+  }, [props.refreshSignal]);
 
   // --- graphs:
 

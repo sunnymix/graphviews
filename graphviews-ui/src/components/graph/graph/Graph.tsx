@@ -32,6 +32,7 @@ export default forwardRef((props: GraphProps, ref) => {
 
   useEffect(() => {
     getGraph();
+    setGraphListRefreshSignal(`refresh-graph-list:${+(new Date())}`);
   }, [props.id]);
 
   // --- graph:
@@ -195,9 +196,13 @@ export default forwardRef((props: GraphProps, ref) => {
         fakeA.click();
         body.removeChild(fakeA);
         message.info("存图成功！");
-      }); 
+      });
     }
   };
+
+  // --- refresh graph list:
+
+  const [graphListRefreshSignal, setGraphListRefreshSignal] = useState<string|undefined>();
 
   // --- ui:
 
@@ -205,7 +210,7 @@ export default forwardRef((props: GraphProps, ref) => {
   <div>
     <div className="graph_bench">
       <div className="graph_list">
-        <GraphList />
+        <GraphList refreshSignal={graphListRefreshSignal} />
       </div>
       <div className="graph_content">
         <div className="graph_actions">
