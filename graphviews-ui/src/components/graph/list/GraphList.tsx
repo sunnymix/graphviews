@@ -6,6 +6,8 @@ import { history } from 'umi';
 import "./GraphListStyle.css";
 import moment from "moment";
 
+// FIXME：添加mode属性
+
 export interface GraphListProps {
   refreshSignal?: string
 }
@@ -55,16 +57,16 @@ export default forwardRef((props: GraphListProps, ref) => {
   return (
     <div>
       <div className="graph_actions">
-        <Space direction="horizontal" size="middle">
-          <Search className="graph_actions_search" onSearch={onSearch} autoFocus />
-          <Button className="graph_actions_create" onClick={createGraph}>创建</Button>
-        </Space>
+        <Search className="graph_actions_search" onSearch={onSearch} autoFocus />
+        <Button className="graph_actions_create" onClick={createGraph}>创建</Button>
       </div>
       <table className="table">
         <tbody>
         {graphs.map((graph: any, index: number) => (
           <tr key={graph.id} onClick={() => history.push(`/graph/${graph.id}`)}>
+            <td>{graph.id}</td>
             <td>{graph.name}</td>
+            <td>{formatTime(graph.created)}</td>
           </tr>
         ))}
         </tbody>
