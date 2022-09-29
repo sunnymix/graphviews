@@ -60,7 +60,7 @@ export default forwardRef((props: GraphListProps, ref) => {
           <Button className="graph_actions_create" onClick={createGraph}>创建</Button>
         </Space>
       </div>
-      <table className="table auto">
+      <table className="table">
         <tbody>
         {graphs.map((graph: any, index: number) => (
           <tr key={graph.id} onClick={() => history.push(`/graph/${graph.id}`)}>

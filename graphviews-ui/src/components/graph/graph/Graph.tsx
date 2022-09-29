@@ -1,8 +1,7 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
 import "./GraphStyle.css";
 import GraphApi from "../api/GraphApi";
-import { Input, Col, Row, Button, Space, Popconfirm, message } from 'antd';
-import { ArrowLeftOutlined } from "@ant-design/icons"
+import { Input, Button, Space, Popconfirm, message } from 'antd';
 import { history } from "umi";
 const { TextArea } = Input;
 import { graphviz, GraphvizOptions } from "d3-graphviz";
@@ -220,12 +219,11 @@ export default forwardRef((props: GraphProps, ref) => {
       <div className="graph_content">
         <div className="graph_actions">
           <Space direction="horizontal" size="middle">
-            <Button type="default" onClick={gotoGraphList}><ArrowLeftOutlined /></Button>
+            <Button type="default" onClick={gotoGraphList}>关闭</Button>
           </Space>
           <Space direction="horizontal" size="middle">
             <Button type="default" onClick={updateGraph}>保存</Button>
             <Button type="default" onClick={copyGraph}>复制</Button>
-            <Button type="default" onClick={saveImage}>存图</Button>
           </Space>
           <Space direction="horizontal" size="middle">
             <Popconfirm title="确认删除？" okText="Yes" cancelText="No" onConfirm={deleteGraph}>
@@ -251,6 +249,11 @@ export default forwardRef((props: GraphProps, ref) => {
         </div>}
       </div>
       <div className="graph_view">
+        <div className="graph_actions">
+          <Space direction="horizontal" size="middle">
+            <Button type="default" onClick={saveImage}>存图</Button>
+          </Space>
+        </div>
         <div className="graph_view_content" ref={graphViewContentRef}></div>
         {/* FIXME：调整error展示样式 */}
         <div className="graph_view_error">{graphViewError}</div>
