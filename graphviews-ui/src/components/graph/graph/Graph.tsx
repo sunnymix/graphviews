@@ -241,7 +241,7 @@ export default forwardRef((props: GraphProps, ref) => {
           </div>
           <div className="label">Source</div>
           <div className="graph_source">
-            {/* FIXME：集成代码编辑器 */}
+            {/* FIXME：集成代码编辑器 https://github.com/jaywcjlove/react-monacoeditor */}
             <TextArea 
               className="graph_source_text" autoSize autoFocus value={source} 
               onChange={(e: any) => setSource(e.target.value || "")}
