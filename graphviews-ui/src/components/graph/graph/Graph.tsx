@@ -214,7 +214,7 @@ export default forwardRef((props: GraphProps, ref) => {
   <div>
     <div className="graph_bench">
       <div className="graph_list">
-        <GraphList refreshSignal={graphListRefreshSignal} />
+        <GraphList mode="list" refreshSignal={graphListRefreshSignal} />
       </div>
       <div className="graph_content">
         <div className="graph_actions">

@@ -6,10 +6,19 @@ import { history } from 'umi';
 import "./GraphListStyle.css";
 import moment from "moment";
 
-// FIXME：添加mode属性
+// FIXME：改为传统的注释代码风格
 
+/**
+ * Graph列表展示模式
+ */
+export type Mode = "table" | "list";
+
+/**
+ * Graph列表属性
+ */
 export interface GraphListProps {
-  refreshSignal?: string
+  mode: Mode,
+  refreshSignal?: string,
 }
 
 export default forwardRef((props: GraphListProps, ref) => {
@@ -64,9 +73,13 @@ export default forwardRef((props: GraphListProps, ref) => {
         <tbody>
         {graphs.map((graph: any, index: number) => (
           <tr key={graph.id} onClick={() => history.push(`/graph/${graph.id}`)}>
+          {props.mode == "table" &&
             <td>{graph.id}</td>
+          }
             <td>{graph.name}</td>
+          {props.mode == "table" &&
             <td>{formatTime(graph.created)}</td>
+          }
           </tr>
         ))}
         </tbody>
