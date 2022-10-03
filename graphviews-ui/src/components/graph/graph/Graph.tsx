@@ -84,7 +84,9 @@ export default forwardRef((props: GraphProps, ref) => {
     history.push("/graph");
   };
   
-  // FIXME 更新状态提示：
+  /**
+   * 方法：更新Graph
+   */
   const updateGraph = () => {
     GraphApi.updateGraph(props.id, {
       name: name,
@@ -99,8 +101,9 @@ export default forwardRef((props: GraphProps, ref) => {
     });
   };
 
-  // --- update graph:
-
+  /**
+   * 方法：删除Graph
+   */
   const deleteGraph = () => {
     GraphApi.deleteGraph(props.id, (success: boolean) => {
       if (success === true) {
@@ -112,8 +115,9 @@ export default forwardRef((props: GraphProps, ref) => {
     });
   };
 
-  // --- copy graph:
-
+  /**
+   * 方法：复制Graph
+   */
   const copyGraph = () => {
     GraphApi.copyGraph(props.id, (id: string) => {
       if (id) {
