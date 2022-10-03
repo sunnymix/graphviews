@@ -30,17 +30,22 @@ export interface GraphData {
  */
 export default forwardRef((props: GraphProps, ref) => {
 
-  // --- load:
-
+  /**
+   * 渲染处理：当Graph的id属性变更时触发
+   */
   useEffect(() => {
     getGraph();
     refreshGraphList();
   }, [props.id]);
 
-  // --- graph:
-
+  /**
+   * 属性：graph数据对象
+   */
   const [graph, setGraph] = useState<GraphData|null>(null);
 
+  /**
+   * 远程获取：graph数据对象
+   */
   const getGraph = () => {
     GraphApi.getGraph(props.id, (graph: GraphData|null) => {
       const newGraph = graph || null;
@@ -52,22 +57,29 @@ export default forwardRef((props: GraphProps, ref) => {
     });
   };
 
-  // --- name:
-
+  /**
+   * 属性：graph的名称
+   */
   const [name, setName] = useState<string>("");
 
-  // --- source:
-
+  /**
+   * 属性：graph的源码
+   */
   const [source, setSource] = useState<string>("");
 
-  // --- goto graph by id:
-
+  /**
+   * 方法：跳转到Graph详情
+   * FIXME：封装到Graph公共方法库
+   * @param id 
+   */
   const gotoGraphById = (id: string) => {
     history.push("/graph/" + id);
   };
 
-  // --- goto graph list:
-
+  /**
+   * 方法：跳转到Graph列表
+   * FIXME：封装到Graph公共方法库
+   */
   const gotoGraphList = () => {
     history.push("/graph");
   };
