@@ -8,14 +8,16 @@ import { graphviz, GraphvizOptions } from "d3-graphviz";
 import html2canvas from "html2canvas";
 import GraphList from "../list/GraphList";
 
-// --- props:
-
+/**
+ * Graph属性
+ */
 export interface GraphProps {
   id: string,
 }
 
-// --- data:
-
+/**
+ * Graph数据模型
+ */
 export interface GraphData {
   id: string,
   name: string,
@@ -23,8 +25,9 @@ export interface GraphData {
   created: string,
 }
 
-// --- component:
-
+/**
+ * Graph组件
+ */
 export default forwardRef((props: GraphProps, ref) => {
 
   // --- load:
@@ -242,7 +245,7 @@ export default forwardRef((props: GraphProps, ref) => {
           <div className="label">Source</div>
           <div className="graph_source">
             {/* FIXME：集成代码编辑器 https://github.com/jaywcjlove/react-monacoeditor */}
-            <TextArea 
+            <TextArea
               className="graph_source_text" autoSize autoFocus value={source} 
               onChange={(e: any) => setSource(e.target.value || "")}
               onKeyDown={sourceOnKeyDown}></TextArea></div>
