@@ -129,9 +129,10 @@ export default forwardRef((props: GraphProps, ref) => {
     });
   };
 
-  // --- graph view options:
-
-  const graphViewOptions: GraphvizOptions = {
+  /**
+   * Graphviz选项
+   */
+  const graphvizOptions: GraphvizOptions = {
     useWorker: false,
     engine: "dot",
     keyMode: "title",
@@ -159,7 +160,7 @@ export default forwardRef((props: GraphProps, ref) => {
   useEffect(() => {
     if (source) {
       try {
-        graphviz(".graph_view_content", graphViewOptions).renderDot(source);
+        graphviz(".graph_view_content", graphvizOptions).renderDot(source);
         setGraphViewError("");
       } catch (error) {
         setGraphViewError("Error: " + error);
