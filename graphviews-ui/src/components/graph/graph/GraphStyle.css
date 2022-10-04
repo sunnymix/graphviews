@@ -18,10 +18,6 @@
   margin-left: 20px;
 }
 
-.graph_source_text {
-  font-family: 'Verily', 'SF Mono';
-}
-
 .graph_view svg {
   outline: 0px solid #eeeeee;
   outline-offset: 0px;
@@ -29,4 +25,14 @@
 
 .graph_view_content {
   display: inline-block;
+}
+
+.graph_source {
+  border: 1px solid #ddd;
+  border-radius: 2px;
+}
+
+.graph_source * {
+  outline-style: none !important;
+  outline-width: 0 !important;
 }

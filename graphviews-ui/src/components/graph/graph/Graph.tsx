@@ -7,6 +7,7 @@ const { TextArea } = Input;
 import { graphviz, GraphvizOptions } from "d3-graphviz";
 import html2canvas from "html2canvas";
 import GraphList from "../list/GraphList";
+import CodeMirror from "@uiw/react-codemirror";
 
 /**
  * Graph属性
@@ -261,11 +262,13 @@ export default forwardRef((props: GraphProps, ref) => {
           </div>
           <div className="label">Source</div>
           <div className="graph_source">
-            {/* FIXME：集成代码编辑器 https://github.com/jaywcjlove/react-monacoeditor */}
-            <TextArea
-              className="graph_source_text" autoSize autoFocus value={source} 
-              onChange={(e: any) => setSource(e.target.value || "")}
-              onKeyDown={sourceOnKeyDown}></TextArea></div>
+            {/* FIXME：支持graphviz/dot语法 */}
+            <CodeMirror
+              value={source}
+              height="auto"
+              onChange={(value: any) => setSource(value || "")}
+              onKeyDown={sourceOnKeyDown}/>
+          </div>
         </div>}
       </div>
       <div className="graph_view">
