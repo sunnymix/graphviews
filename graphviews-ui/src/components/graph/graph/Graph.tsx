@@ -229,8 +229,9 @@ export default forwardRef((props: GraphProps, ref) => {
     setGraphListRefreshSignal(`refresh-graph-list:${+(new Date())}`);
   };
 
-  // --- ui:
-
+  /**
+   * Graph的界面
+   */
   return (
   <div>
     <div className="graph_bench">
@@ -283,5 +284,4 @@ export default forwardRef((props: GraphProps, ref) => {
       </div>
     </div>
   </div>);
-
 });
