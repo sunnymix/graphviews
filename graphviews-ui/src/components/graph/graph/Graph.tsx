@@ -223,10 +223,14 @@ export default forwardRef((props: GraphProps, ref) => {
     }
   };
 
-  // --- refresh graph list:
-
+  /**
+   * 属性：Graph列表的刷新信号
+   */
   const [graphListRefreshSignal, setGraphListRefreshSignal] = useState<string|undefined>();
 
+  /**
+   * 方法：刷新Graph列表，通过刷新信号
+   */
   const refreshGraphList = () => {
     setGraphListRefreshSignal(`refresh-graph-list:${+(new Date())}`);
   };
