@@ -10,6 +10,10 @@ import GraphList from "../list/GraphList";
 import CodeMirror from "@uiw/react-codemirror";
 
 /**
+ * FIXME：展示Graph的更新时间
+ */
+
+/**
  * Graph属性
  */
 export interface GraphProps {
@@ -148,16 +152,19 @@ export default forwardRef((props: GraphProps, ref) => {
     fit: false,
   };
 
-  // --- graph view ref:
-
+  /**
+   * 引用：Graph视图内容的元素引用
+   */
   const graphViewContentRef = useRef<any>(null);
 
-  // --- graph view error:
-
+  /**
+   * 属性：Graph视图的错误信息
+   */
   const [graphViewError, setGraphViewError] = useState<string>("");
 
-  // --- update graph:
-
+  /**
+   * 影响：Graph源代码变更后，重新渲染Graph视图
+   */
   useEffect(() => {
     if (source) {
       try {
@@ -169,15 +176,14 @@ export default forwardRef((props: GraphProps, ref) => {
     }
   }, [source]);
 
-  // --- name key down:
-
+  /**
+   * 事件响应：Graph名称输入框的按键事件
+   * FIXME：抽象按键事件参数类型
+   * @param e 按键事件参数
+   */
   const nameOnKeyDown = (e: any) => {
     const code = e.code;
     const isCmd = e.metaKey;
-    const isShift = e.shiftKey;
-    const isOpt = e.altKey;
-    const isCtr = e.ctrlKey;
-
     if (code == "KeyS") {
       if (isCmd) {
         e.preventDefault();
@@ -186,15 +192,14 @@ export default forwardRef((props: GraphProps, ref) => {
     }
   };
 
-  // --- source key down:
-
+  /**
+   * 事件响应：Graph源代码输入框的按键事件
+   * FIXME：抽象按键事件参数类型
+   * @param e 按键事件参数
+   */
   const sourceOnKeyDown = (e: any) => {
     const code = e.code;
     const isCmd = e.metaKey;
-    const isShift = e.shiftKey;
-    const isOpt = e.altKey;
-    const isCtr = e.ctrlKey;
-
     if (code == "KeyS") {
       if (isCmd) {
         e.preventDefault();
