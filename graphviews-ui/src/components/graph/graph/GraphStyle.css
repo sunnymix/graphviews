@@ -32,7 +32,12 @@
   border-radius: 2px;
 }
 
+/* 消除codemirror自带的边框样式 */
 .graph_source * {
   outline-style: none !important;
   outline-width: 0 !important;
+}
+
+.graph_view_error {
+  color: red;
 }
