@@ -203,9 +203,11 @@ export default forwardRef((props: GraphProps, ref) => {
     }
   };
 
-  // --- save image:
-
-  const saveImage = (e: any) => {
+  /**
+   * 保存快照
+   * @param ignoreArg 忽略参数
+   */
+  const saveSnapshot = (ignoreArg: any) => {
     if (graphViewContentRef.current) {
       html2canvas(graphViewContentRef.current, {}).then((canvas: any) => {
         const image = canvas.toDataURL("image/png", 1.0);
@@ -275,7 +277,7 @@ export default forwardRef((props: GraphProps, ref) => {
       <div className="graph_view">
         <div className="graph_actions">
           <Space direction="horizontal" size="middle">
-            <Button type="default" onClick={saveImage}>存图</Button>
+            <Button type="default" onClick={saveSnapshot}>快照</Button>
           </Space>
         </div>
         <div className="graph_view_content" ref={graphViewContentRef}></div>
