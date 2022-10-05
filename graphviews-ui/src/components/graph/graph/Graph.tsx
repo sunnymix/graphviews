@@ -171,7 +171,8 @@ export default forwardRef((props: GraphProps, ref) => {
         graphviz(".graph_view_content", graphvizOptions).renderDot(source);
         setGraphViewError("");
       } catch (error) {
-        setGraphViewError("Error: " + error);
+        const errorMessage = "Render error: " + error;
+        setGraphViewError(errorMessage);
       }
     }
   }, [source]);
@@ -275,6 +276,7 @@ export default forwardRef((props: GraphProps, ref) => {
           <div className="label">Source</div>
           <div className="graph_source">
             {/* FIXME：支持graphviz/dot语法 */}
+            {/* FIXME：自定义主体theme */}
             <CodeMirror
               value={source}
               height="auto"
@@ -290,7 +292,6 @@ export default forwardRef((props: GraphProps, ref) => {
           </Space>
         </div>
         <div className="graph_view_content" ref={graphViewContentRef}></div>
-        {/* FIXME：调整error展示样式 */}
         <div className="graph_view_error">{graphViewError}</div>
       </div>
     </div>
