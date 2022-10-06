@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import "./GraphStyle.css";
 import GraphApi from "../api/GraphApi";
 import { Input, Button, Space, Popconfirm, message } from 'antd';
@@ -182,7 +182,7 @@ export default forwardRef((props: GraphProps, ref) => {
    * FIXME：抽象按键事件参数类型
    * @param e 按键事件参数
    */
-  const nameOnKeyDown = (e: any) => {
+  const nameOnKeyDown = (e: React.KeyboardEvent) => {
     const code = e.code;
     const isCmd = e.metaKey;
     if (code == "KeyS") {
@@ -195,10 +195,9 @@ export default forwardRef((props: GraphProps, ref) => {
 
   /**
    * 事件响应：Graph源代码输入框的按键事件
-   * FIXME：抽象按键事件参数类型
    * @param e 按键事件参数
    */
-  const sourceOnKeyDown = (e: any) => {
+  const sourceOnKeyDown = (e: React.KeyboardEvent) => {
     const code = e.code;
     const isCmd = e.metaKey;
     if (code == "KeyS") {
