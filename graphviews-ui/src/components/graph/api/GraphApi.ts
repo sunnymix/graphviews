@@ -25,12 +25,21 @@ const queryGraph = (keyword: string, cb: QueryGraphCallback) => {
     });
 };
 
-// --- get graph:
-
+/**
+ * Path：获取Graph
+ */
 const API_GRAPH_GET = Constant.API_HOST + "/graph/get/";
 
+/**
+ * 回调：获取Graph
+ */
 type GetGraphCallback = (graph: GraphData|null) => void;
 
+/**
+ * API：获取Graph
+ * @param id Graph的id
+ * @param cb 回调
+ */
 const getGraph = (id: string, cb: GetGraphCallback) => {
   axios.get(API_GRAPH_GET + id)
     .then(res => {
