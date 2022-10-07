@@ -91,12 +91,21 @@ const deleteGraph = (id: string, cb: DeleteGraphCallback) => {
     });
 };
 
-// --- copy graph:
-
+/**
+ * Path：复制Graph
+ */
 const API_GRAPH_COPY = Constant.API_HOST + "/graph/copy/";
 
+/**
+ * 回调：复制Graph
+ */
 type CopyGraphCallback = (id: string) => void;
 
+/**
+ * API：复制Graph
+ * @param id Graph的id
+ * @param cb 回调
+ */
 const copyGraph = (id: string, cb: CopyGraphCallback) => {
   axios.post(API_GRAPH_COPY + id, {})
     .then(res => {
@@ -105,6 +114,9 @@ const copyGraph = (id: string, cb: CopyGraphCallback) => {
     });
 };
 
+/**
+ * 导出Graph的API
+ */
 export default {
   queryGraph,
   getGraph,
