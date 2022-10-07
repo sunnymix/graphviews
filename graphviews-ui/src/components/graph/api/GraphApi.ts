@@ -2,12 +2,21 @@ import axios from "axios";
 import Constant from "@/components/common/Constant";
 import { GraphData } from "../graph/Graph";
 
-// --- query graph:
-
+/**
+ * Path：查询Graph
+ */
 const API_GRAPH_QUERY = Constant.API_HOST + "/graph/query";
 
+/**
+ * 回调：查询Graph
+ */
 type QueryGraphCallback = (graph: GraphData[]) => void;
 
+/**
+ * API：查询Graph
+ * @param keyword 关键字 
+ * @param cb 回调
+ */
 const queryGraph = (keyword: string, cb: QueryGraphCallback) => {
   axios.get(`${API_GRAPH_QUERY}?keyword=${keyword}`)
     .then(res => {
