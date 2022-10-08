@@ -48,13 +48,24 @@ const getGraph = (id: string, cb: GetGraphCallback) => {
     });
 };
 
-// --- update graph:
-
+/**
+ * Path：更新Graph
+ */
 const API_GRAPH_UPDATE = Constant.API_HOST + "/graph/update/";
 
+/**
+ * 回调：更新Graph
+ */
 type UpdateGraphCallback = (success: boolean) => void;
 
-// FIXME：定义form的类型
+
+/**
+ * API：更新Graph
+ * FIXME：定义form的类型
+ * @param id Graph的id
+ * @param form 表单
+ * @param cb 回调
+ */
 const updateGraph = (id: string, form: any, cb: UpdateGraphCallback) => {
   axios.post(API_GRAPH_UPDATE + id, form)
     .then(res => {
@@ -63,12 +74,20 @@ const updateGraph = (id: string, form: any, cb: UpdateGraphCallback) => {
     });
 };
 
-// --- create graph:
-
+/**
+ * Path：创建Graph
+ */
 const API_GRAPH_CREATE = Constant.API_HOST + "/graph/create";
 
+/**
+ * 回调：创建Graph
+ */
 type CreateGraphCallback = (id: string|null) => void;
 
+/**
+ * API：创建Graph
+ * @param cb 回调
+ */
 const createGraph = (cb: CreateGraphCallback) => {
   axios.post(API_GRAPH_CREATE, {})
     .then(res => {
@@ -77,12 +96,21 @@ const createGraph = (cb: CreateGraphCallback) => {
     });
 };
 
-// --- delete graph:
-
+/**
+ * Path：删除Graph
+ */
 const API_GRAPH_DELETE = Constant.API_HOST + "/graph/delete/";
 
+/**
+ * 回调：删除Graph
+ */
 type DeleteGraphCallback = (success: boolean) => void;
 
+/**
+ * API：删除Graph
+ * @param id Graph的id
+ * @param cb 回调
+ */
 const deleteGraph = (id: string, cb: DeleteGraphCallback) => {
   axios.post(API_GRAPH_DELETE + id, {})
     .then(res => {
