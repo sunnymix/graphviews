@@ -287,7 +287,7 @@ export default forwardRef((props: GraphProps, ref) => {
       <div className="graph_view">
         <div className="graph_actions">
           <Space direction="horizontal" size="middle">
-            <Button type="default" onClick={saveSnapshot}>快照</Button>
+            <Button type="default" onClick={saveSnapshot}>截图</Button>
           </Space>
         </div>
         <div className="graph_view_content" ref={graphViewContentRef}></div>
