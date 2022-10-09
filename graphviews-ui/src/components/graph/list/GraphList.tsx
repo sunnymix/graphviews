@@ -55,14 +55,19 @@ export default forwardRef((props: GraphListProps, ref) => {
     });
   };
 
-  // --- format created:
-
-  const formatTime = (timestamp: number) => {
+  /**
+   * 时间格式化
+   * FIXME：抽象到公共库
+   * @param timestamp 毫秒时间戳
+   * @returns 格式化的时间字符串
+   */
+  const formatTime = (timestamp: number): string => {
     return moment(new Date(timestamp)).format("YYYY-MM-DD HH:mm")
   };
 
-  // --- ui:
-
+  /**
+   * GraphList的界面
+   */
   return (
     <div>
       <div className="graph_actions">
